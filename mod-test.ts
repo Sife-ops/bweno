@@ -59,6 +59,15 @@ test({
 });
 
 test({
+  name: 'status',
+  async fn() {
+    const response = await bweno.status();
+    // console.log(response);
+    assert(response.success);
+  },
+});
+
+test({
   name: 'throws if item not found',
   async fn() {
     try {

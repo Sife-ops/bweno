@@ -50,6 +50,10 @@ export class Bweno {
     return await this.bwApiGetRequest('/generate');
   }
 
+  async status() {
+    return await this.bwApiGetRequest('/status');
+  }
+
   /**
    * todo:
    * what is this?
