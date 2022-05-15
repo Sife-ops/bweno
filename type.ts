@@ -39,12 +39,13 @@ export type generateOptions = {
   capitalize?: boolean;
   includeNumber?: boolean;
 };
+
 export interface getOptions {
   object: bwObjectType;
   id: string;
 }
 
-export interface syncOptions {
+export type syncOptions = {
   last?: boolean;
   force?: boolean;
 }

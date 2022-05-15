@@ -60,14 +60,21 @@ export class Bweno {
     return await this.bwApiGetRequest('/status');
   }
 
+  // todo: /list/object/send
   async listObject(object: t.bwObjectListType) {
     return await this.bwApiGetRequest(`/list/object/${object}`);
   }
 
-  // GET  /send/list
+  async sendList(search: string) {
+    return await this.bwApiGetRequest(`/send/list?search=${search}`);
+  }
 
   async sync(options?: t.syncOptions) {
-    return await this.bwApiPostRequest('/sync', options);
+    let queryParams = '';
+    if (options) {
+      queryParams = queryParams.concat(this.objToQueryParams(options));
+    }
+    return await this.bwApiPostRequest('/sync' + queryParams);
   }
 
   // POST /lock

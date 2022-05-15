@@ -90,13 +90,20 @@ test({
   },
 });
 
-// GET  /send/list
+test({
+  name: 'send list',
+  async fn() {
+    const response = await bweno.sendList('Adobe');
+    // console.log(response);
+    assert(response.success);
+  },
+});
 
 test({
   name: 'sync',
   async fn() {
     // todo: test options
-    // const response = await bweno.sync({ last: true });
+    // const response = await bweno.sync({ force: true });
     const response = await bweno.sync();
     // console.log(response);
     assert(response.success);
