@@ -49,10 +49,24 @@ test({
   },
 });
 
+// endpoints
+
 test({
   name: 'generate',
   async fn() {
     const response = await bweno.generate();
+    // console.log(response);
+    assert(response.success);
+  },
+});
+
+test({
+  name: 'generate with options',
+  async fn() {
+    const response = await bweno.generate({
+      length: 32,
+      special: true,
+    });
     // console.log(response);
     assert(response.success);
   },
@@ -81,6 +95,8 @@ test({
 test({
   name: 'sync',
   async fn() {
+    // todo: test options
+    // const response = await bweno.sync({ last: true });
     const response = await bweno.sync();
     // console.log(response);
     assert(response.success);

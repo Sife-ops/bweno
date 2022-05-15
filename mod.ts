@@ -1,10 +1,7 @@
 import * as t from './type.ts';
 
 export class Bweno {
-  constructor(
-    // todo: change to object
-    private url: string = 'http://localhost:8087'
-  ) {}
+  constructor(private url: string = 'http://localhost:8087') {}
 
   private async bwApiRequest(e: string, i: RequestInit) {
     const response = await fetch(`${this.url}${e}`, i);
@@ -25,9 +22,7 @@ export class Bweno {
   private async bwApiPostRequest(e: string, b?: unknown) {
     return await this.bwApiRequest(e, {
       method: 'POST',
-      headers: {
-        'Content-Type': 'application/json',
-      },
+      headers: { 'Content-Type': 'application/json' },
       body: JSON.stringify(b),
     });
   }
@@ -35,9 +30,7 @@ export class Bweno {
   private async bwApiPutRequest(e: string, b: unknown) {
     return await this.bwApiRequest(e, {
       method: 'PUT',
-      headers: {
-        'Content-Type': 'application/json',
-      },
+      headers: { 'Content-Type': 'application/json' },
       body: JSON.stringify(b),
     });
   }
@@ -46,8 +39,21 @@ export class Bweno {
     return await this.bwApiRequest(e, { method: 'DELETE' });
   }
 
-  async generate() {
-    return await this.bwApiGetRequest('/generate');
+  private objToQueryParams(object: Record<string, unknown>) {
+    return (
+      '?' +
+      Object.keys(object)
+        .map((key) => `${key}=${object[key]}`)
+        .join('&')
+    );
+  }
+
+  async generate(options?: t.generateOptions) {
+    let queryParams = '';
+    if (options) {
+      queryParams = queryParams.concat(this.objToQueryParams(options));
+    }
+    return await this.bwApiGetRequest('/generate' + queryParams);
   }
 
   async status() {
@@ -60,8 +66,8 @@ export class Bweno {
 
   // GET  /send/list
 
-  async sync() {
-    return await this.bwApiPostRequest('/sync');
+  async sync(options?: t.syncOptions) {
+    return await this.bwApiPostRequest('/sync', options);
   }
 
   // POST /lock

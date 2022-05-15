@@ -27,17 +27,24 @@ export type bwObjectListType =
   | 'org-members'
   | 'organizations';
 
+export type generateOptions = {
+  uppercase?: boolean;
+  lowercase?: boolean;
+  number?: boolean;
+  special?: boolean;
+  length?: number;
+  type?: 'passphrase' | 'password';
+  separator?: string;
+  words?: number;
+  capitalize?: boolean;
+  includeNumber?: boolean;
+};
 export interface getOptions {
   object: bwObjectType;
   id: string;
 }
-// interface bwObject {
-//   object: bwObjectType;
-//   id: string;
-// }
 
-// type bwApiGetResponse = {
-//   data: bwObject;
-// } & bwApiResonse;
-
-// type b = bwApiResonse & bwApiGetResponse;
+export interface syncOptions {
+  last?: boolean;
+  force?: boolean;
+}
