@@ -22,7 +22,7 @@ export class Bweno {
     return await this.bwApiRequest(e, { method: 'GET' });
   }
 
-  private async bwApiPostRequest(e: string, b: unknown) {
+  private async bwApiPostRequest(e: string, b?: unknown) {
     return await this.bwApiRequest(e, {
       method: 'POST',
       headers: {
@@ -54,6 +54,26 @@ export class Bweno {
     return await this.bwApiGetRequest('/status');
   }
 
+  async listObject(object: t.bwObjectListType) {
+    return await this.bwApiGetRequest(`/list/object/${object}`);
+  }
+
+  // GET  /send/list
+
+  async sync() {
+    return await this.bwApiPostRequest('/sync');
+  }
+
+  // POST /lock
+  // POST /unlock
+  // POST /confirm/:object/:id
+  // POST /restore/:object/:id
+  // POST /move/:id/:organizationId
+  // POST /attachment
+  // POST /send/:id/remove-password
+  // POST /object/:object
+  // PUT  /object/:object/:id
+
   /**
    * todo:
    * what is this?
@@ -68,7 +88,5 @@ export class Bweno {
     );
   }
 
-  async listObjectItems() {
-    return await this.bwApiGetRequest('/list/object/items');
-  }
+  // DELETE /object/:object/:id
 }

@@ -68,19 +68,49 @@ test({
 });
 
 test({
-  name: 'throws if item not found',
+  name: 'list object',
   async fn() {
-    try {
-      await bweno.get({
-        object: 'item',
-        id: '766d5fcd-e8e9-4698-bb08-ad44002f6282',
-      });
-      fail();
-    } catch (e) {
-      assert(e.message.includes('Not found'));
-    }
+    const response = await bweno.listObject('folders');
+    // console.log(response);
+    assert(response.success);
   },
 });
+
+// GET  /send/list
+
+test({
+  name: 'sync',
+  async fn() {
+    const response = await bweno.sync();
+    // console.log(response);
+    assert(response.success);
+  },
+});
+
+// POST /lock
+// POST /unlock
+// POST /confirm/:object/:id
+// POST /restore/:object/:id
+// POST /move/:id/:organizationId
+// POST /attachment
+// POST /send/:id/remove-password
+// POST /object/:object
+// PUT  /object/:object/:id
+
+// test({
+//   name: 'throws if item not found',
+//   async fn() {
+//     try {
+//       await bweno.get({
+//         object: 'item',
+//         id: '766d5fcd-e8e9-4698-bb08-ad44002f6282',
+//       });
+//       fail();
+//     } catch (e) {
+//       assert(e.message.includes('Not found'));
+//     }
+//   },
+// });
 
 // test({
 //   name: 'get item',

@@ -19,6 +19,14 @@ export type bwObjectType =
   | 'template'
   | 'fingerprint';
 
+export type bwObjectListType =
+  | 'items'
+  | 'folders'
+  | 'collections'
+  | 'org-collections'
+  | 'org-members'
+  | 'organizations';
+
 export interface getOptions {
   object: bwObjectType;
   id: string;
