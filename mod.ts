@@ -77,8 +77,23 @@ export class Bweno {
     return await this.bwApiPostRequest('/sync' + queryParams);
   }
 
-  // POST /lock
-  // POST /unlock
+  // todo: test
+  async lock() {
+    return await this.bwApiPostRequest('/lock');
+  }
+
+  // todo: test
+  async unlock(input: { password?: string; options?: t.unlockOptions }) {
+    if (input.password) {
+      return await this.bwApiPostRequest('/unlock', {
+        password: input.password,
+      });
+    } else if (input.options) {
+      const queryParams = this.objToQueryParams(input.options);
+      return await this.bwApiPostRequest('/unlock' + queryParams);
+    }
+  }
+
   // POST /confirm/:object/:id
   // POST /restore/:object/:id
   // POST /move/:id/:organizationId

@@ -48,4 +48,9 @@ export interface getOptions {
 export type syncOptions = {
   last?: boolean;
   force?: boolean;
-}
+};
+
+export type unlockOptions = {
+  passwordEnv: string;
+  passwordFile: string;
+};
