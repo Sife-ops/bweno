@@ -1,15 +1,8 @@
-import { assertEquals, assert } from './test-deps.ts';
+import { assertEquals, assert, fail } from './test-deps.ts';
 
-import { hello, Bweno } from './mod.ts';
+import { Bweno } from './mod.ts';
 
 const { test } = Deno;
-
-test({
-  name: 'example',
-  fn(): void {
-    assertEquals(hello(), 'hello');
-  },
-});
 
 const badUrl = 'badUrl';
 const inactiveUrl = 'http://localhost:8086';
@@ -37,6 +30,7 @@ test({
   async fn() {
     try {
       await bwenoBadUrl['bwApiRequest']('/status', { method: 'GET' });
+      fail();
     } catch (e) {
       assertEquals(e.message, 'Invalid URL');
     }
@@ -48,6 +42,7 @@ test({
   async fn() {
     try {
       await bwenoInactiveUrl['bwApiRequest']('/status', { method: 'GET' });
+      fail();
     } catch (e) {
       assert(e.message.includes('Connection refused'));
     }
@@ -55,9 +50,36 @@ test({
 });
 
 test({
-  name: 'throws if connection refused',
+  name: 'generate',
   async fn() {
-    const response = await bweno['bwApiRequest']('/status', { method: 'GET' });
-    console.log(response);
+    const response = await bweno.generate();
+    // console.log(response);
+    assert(response.success);
   },
 });
+
+test({
+  name: 'throws if item not found',
+  async fn() {
+    try {
+      await bweno.get({
+        object: 'item',
+        id: '766d5fcd-e8e9-4698-bb08-ad44002f6282',
+      });
+      fail();
+    } catch (e) {
+      assert(e.message.includes('Not found'));
+    }
+  },
+});
+
+// test({
+//   name: 'get item',
+//   async fn() {
+//     const a = await bweno.get({
+//       object: 'item',
+//       id: '765d5fcd-e8e9-4698-bb08-ad44002f6282',
+//     });
+//     console.log(a);
+//   },
+// });
