@@ -40,11 +40,6 @@ export type generateOptions = {
   includeNumber?: boolean;
 };
 
-export interface getOptions {
-  object: bwObjectType;
-  id: string;
-}
-
 export type syncOptions = {
   last?: boolean;
   force?: boolean;
@@ -54,3 +49,17 @@ export type unlockOptions = {
   passwordEnv: string;
   passwordFile: string;
 };
+
+export interface unlockInput {
+  password?: string;
+  options?: unlockOptions;
+}
+
+export interface getObjectInput {
+  objectType: bwObjectType;
+  id: string;
+}
+
+export interface bwObject {
+  object: string;
+}

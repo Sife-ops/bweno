@@ -27,7 +27,7 @@ export class Bweno {
     });
   }
 
-  private async bwApiPutRequest(e: string, b: unknown) {
+  private async bwApiPutRequest(e: string, b?: unknown) {
     return await this.bwApiRequest(e, {
       method: 'PUT',
       headers: { 'Content-Type': 'application/json' },
@@ -40,12 +40,12 @@ export class Bweno {
   }
 
   private objToQueryParams(object: Record<string, unknown>) {
-    return (
-      '?' +
-      Object.keys(object)
-        .map((key) => `${key}=${object[key]}`)
-        .join('&')
-    );
+    const keys = Object.keys(object);
+    if (keys.length > 0) {
+      return '?' + keys.map((key) => `${key}=${object[key]}`).join('&');
+    } else {
+      return '';
+    }
   }
 
   async generate(options?: t.generateOptions) {
@@ -83,7 +83,7 @@ export class Bweno {
   }
 
   // todo: test
-  async unlock(input: { password?: string; options?: t.unlockOptions }) {
+  async unlock(input: t.unlockInput) {
     if (input.password) {
       return await this.bwApiPostRequest('/unlock', {
         password: input.password,
@@ -99,20 +99,35 @@ export class Bweno {
   // POST /move/:id/:organizationId
   // POST /attachment
   // POST /send/:id/remove-password
-  // POST /object/:object
+
+  async create<T extends t.bwObject>(input: {
+    body: T;
+    query: Record<string, unknown>;
+  }) {
+    const queryParams = this.objToQueryParams(input.query);
+    return await this.bwApiPostRequest(
+      `/object/${input.body.object}${queryParams}`,
+      input.body
+    );
+  }
+
+  async sendCreate<T extends t.bwObject>(input: {
+    body: T;
+    query: Record<string, unknown>;
+  }) {
+    const queryParams = this.objToQueryParams(input.query);
+    return await this.bwApiPostRequest(
+      `/object/send${queryParams}`,
+      input.body
+    );
+  }
+
   // PUT  /object/:object/:id
 
-  /**
-   * todo:
-   * what is this?
-   * serve.commands.ts:343
-   * ctx.params.object === "send"
-   * @param options
-   * @returns
-   */
-  async get(options: t.getOptions) {
+  // todo: /object/send/:id
+  async get(input: t.getObjectInput) {
     return await this.bwApiGetRequest(
-      `/object/${options.object}/${options.id}`
+      `/object/${input.objectType}/${input.id}`
     );
   }
 
