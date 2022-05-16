@@ -1,1 +1,1 @@
-import './mod-test/mod-test.ts';
+import './mod-test/index.ts';

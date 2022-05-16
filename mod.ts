@@ -1,45 +1,42 @@
 import * as t from './type.ts';
 
-export class Bweno {
-  constructor(private url: string = 'http://localhost:8087') {}
+export class Calls {
+  constructor(private url: string) {}
 
-  private async bwApiRequest(e: string, i: RequestInit) {
+  async request(e: string, i: RequestInit) {
     const response = await fetch(`${this.url}${e}`, i);
-
     const parsed: t.bwApiResonse = await response.json();
-
     if (!parsed.success) {
       throw new Error(`API Error: ${parsed.message}`);
     }
-
     return parsed;
   }
 
-  private async bwApiGetRequest(e: string) {
-    return await this.bwApiRequest(e, { method: 'GET' });
+  async get(e: string) {
+    return await this.request(e, { method: 'GET' });
   }
 
-  private async bwApiPostRequest(e: string, b?: unknown) {
-    return await this.bwApiRequest(e, {
+  async post(e: string, b?: unknown) {
+    return await this.request(e, {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
       body: JSON.stringify(b),
     });
   }
 
-  private async bwApiPutRequest(e: string, b?: unknown) {
-    return await this.bwApiRequest(e, {
+  async put(e: string, b?: unknown) {
+    return await this.request(e, {
       method: 'PUT',
       headers: { 'Content-Type': 'application/json' },
       body: JSON.stringify(b),
     });
   }
 
-  private async bwApiDeleteRequest(e: string) {
-    return await this.bwApiRequest(e, { method: 'DELETE' });
+  async delete(e: string) {
+    return await this.request(e, { method: 'DELETE' });
   }
 
-  private objToQueryParams(object: Record<string, unknown>) {
+  objToQueryString(object: Record<string, unknown>) {
     const keys = Object.keys(object);
     if (keys.length > 0) {
       return '?' + keys.map((key) => `${key}=${object[key]}`).join('&');
@@ -48,88 +45,23 @@ export class Bweno {
     }
   }
 
-  async generate(options?: t.generateOptions) {
-    let queryParams = '';
-    if (options) {
-      queryParams = queryParams.concat(this.objToQueryParams(options));
+  async processRequest(o: BaseRequest) {
+    let queryString = '';
+    if (o.query) {
+      queryString = this.objToQueryString(o.query);
     }
-    return await this.bwApiGetRequest('/generate' + queryParams);
+    await this[o.method](o.path + queryString, o.body);
   }
-
-  async status() {
-    return await this.bwApiGetRequest('/status');
-  }
-
-  // todo: /list/object/send
-  async listObject(object: t.bwObjectListType) {
-    return await this.bwApiGetRequest(`/list/object/${object}`);
-  }
-
-  async sendList(search: string) {
-    return await this.bwApiGetRequest(`/send/list?search=${search}`);
-  }
-
-  async sync(options?: t.syncOptions) {
-    let queryParams = '';
-    if (options) {
-      queryParams = queryParams.concat(this.objToQueryParams(options));
-    }
-    return await this.bwApiPostRequest('/sync' + queryParams);
-  }
-
-  // todo: test
-  async lock() {
-    return await this.bwApiPostRequest('/lock');
-  }
-
-  // todo: test
-  async unlock(input: t.unlockInput) {
-    if (input.password) {
-      return await this.bwApiPostRequest('/unlock', {
-        password: input.password,
-      });
-    } else if (input.options) {
-      const queryParams = this.objToQueryParams(input.options);
-      return await this.bwApiPostRequest('/unlock' + queryParams);
-    }
-  }
-
-  // POST /confirm/:object/:id
-  // POST /restore/:object/:id
-  // POST /move/:id/:organizationId
-  // POST /attachment
-  // POST /send/:id/remove-password
-
-  async create<T extends t.bwObject>(input: {
-    body: T;
-    query: Record<string, unknown>;
-  }) {
-    const queryParams = this.objToQueryParams(input.query);
-    return await this.bwApiPostRequest(
-      `/object/${input.body.object}${queryParams}`,
-      input.body
-    );
-  }
-
-  async sendCreate<T extends t.bwObject>(input: {
-    body: T;
-    query: Record<string, unknown>;
-  }) {
-    const queryParams = this.objToQueryParams(input.query);
-    return await this.bwApiPostRequest(
-      `/object/send${queryParams}`,
-      input.body
-    );
-  }
-
-  // PUT  /object/:object/:id
-
-  // todo: /object/send/:id
-  async get(input: t.getObjectInput) {
-    return await this.bwApiGetRequest(
-      `/object/${input.objectType}/${input.id}`
-    );
-  }
-
-  // DELETE /object/:object/:id
 }
+
+interface BaseRequest {
+  method: 'get' | 'post' | 'put' | 'delete';
+  path: string;
+  query?: Record<string, unknown>;
+  body?: Record<string, unknown>;
+}
+
+const StatusRequest: BaseRequest = {
+  method: 'get',
+  path: '/status',
+};
