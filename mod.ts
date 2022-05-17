@@ -48,7 +48,7 @@ export class Calls {
 
 interface BaseRequest {
   method: string;
-  path?: string;
+  path: string;
   param?: string[];
   query?: Record<string, unknown>;
   body?: Record<string, unknown>;
@@ -122,21 +122,44 @@ export class ListObjectRequest implements BaseRequest {
 
 ////////////////////////////////////////////////////////////////////////////////
 
-type ObjectQuery = {
-  itemId: string;
-  organizationId: string;
-  file: string;
+abstract class ItemRequest implements BaseRequest {
+  method = 'post';
+  path = '/object/item';
+}
+
+type ObjectItemLoginBody = {
+  username: string;
+  password: string;
 };
 
-abstract class ObjectRequest implements BaseRequest {
-  method = 'post';
-
-  query: ObjectQuery;
-
-  constructor(query: ObjectQuery) {
-    this.query = query;
+class ItemLoginRequest extends ItemRequest {
+  body: ObjectItemLoginBody;
+  constructor(body: ObjectItemLoginBody) {
+    super();
+    this.body = body;
   }
 }
+
+Deno.test({
+  name: 'ObjectItemLoginRequest',
+  fn: () => {
+    const o = new ItemLoginRequest({
+      username: 'a',
+      password: 'b',
+    });
+    console.log(o);
+  },
+});
+
+////////////////////////////////////////////////////////////////////////////////
+
+type ObjectAttachmentQuery = {
+  itemId: string;
+  file: string;
+  // organizationId?: string;
+};
+
+// todo: ObjectAttachmentRequest
 
 ////////////////////////////////////////////////////////////////////////////////
 
@@ -144,13 +167,31 @@ type ObjectFolderBody = {
   name: string;
 };
 
-export class ObjectFolderRequest extends ObjectRequest {
+class ObjectFolderRequest implements BaseRequest {
+  method = 'post';
   path = '/object/folder';
 
   body: ObjectFolderBody;
 
-  constructor(query: ObjectQuery, body: ObjectFolderBody) {
-    super(query);
+  constructor(body: ObjectFolderBody) {
     this.body = body;
   }
 }
+
+Deno.test({
+  name: 'ObjectFolderRequest',
+  fn: () => {
+    const o = new ObjectFolderRequest({
+      name: 'a',
+    });
+    console.log(o);
+  },
+});
+
+////////////////////////////////////////////////////////////////////////////////
+
+type ObjectOrgCollectionQuery = {
+  organizationId: string;
+};
+
+// todo: ObjectOrgCollectionRequest

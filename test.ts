@@ -1,1 +1,2 @@
-import './test/index.ts';
+// import './test/index.ts';
+import './mod.ts'
