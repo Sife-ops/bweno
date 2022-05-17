@@ -3,7 +3,7 @@ import * as t from './type.ts';
 export class Calls {
   constructor(private url: string) {}
 
-  async request(e: string, i: RequestInit) {
+  private async request(e: string, i: RequestInit) {
     const response = await fetch(`${this.url}${e}`, i);
     const parsed: t.bwApiResonse = await response.json();
     if (!parsed.success) {
@@ -44,24 +44,113 @@ export class Calls {
       return '';
     }
   }
-
-  async processRequest(o: BaseRequest) {
-    let queryString = '';
-    if (o.query) {
-      queryString = this.objToQueryString(o.query);
-    }
-    await this[o.method](o.path + queryString, o.body);
-  }
 }
 
 interface BaseRequest {
-  method: 'get' | 'post' | 'put' | 'delete';
-  path: string;
+  method: string;
+  path?: string;
+  param?: string[];
   query?: Record<string, unknown>;
   body?: Record<string, unknown>;
 }
 
-const StatusRequest: BaseRequest = {
-  method: 'get',
-  path: '/status',
+////////////////////////////////////////////////////////////////////////////////
+
+type GenerateQuery = {
+  uppercase: boolean;
+  lowercase: boolean;
+  number: boolean;
+  special: boolean;
+  length: number;
+  type: 'passphrase' | 'password';
+  separator: string;
+  words: number;
+  capitalize: boolean;
+  includeNumber: boolean;
 };
+
+export class GenerateRequest implements BaseRequest {
+  method = 'get';
+  path = '/generate';
+
+  query: GenerateQuery;
+
+  constructor(query: GenerateQuery) {
+    this.query = query;
+  }
+}
+
+////////////////////////////////////////////////////////////////////////////////
+
+export class StatusRequest implements BaseRequest {
+  method = 'get';
+  path = '/status';
+}
+
+////////////////////////////////////////////////////////////////////////////////
+
+type ListObjectParam = [
+  | 'items'
+  | 'folders'
+  | 'collections'
+  | 'org-collections'
+  | 'org-members'
+  | 'organizations'
+];
+
+type ListObjectQuery = {
+  organizationId: string;
+  collectionId: string;
+  folderId: string;
+  search: string;
+  url: string;
+  trash: boolean;
+};
+
+export class ListObjectRequest implements BaseRequest {
+  method = 'get';
+  path = '/list/object';
+
+  param: ListObjectParam;
+  query: ListObjectQuery;
+
+  constructor(param: ListObjectParam, query: ListObjectQuery) {
+    this.param = param;
+    this.query = query;
+  }
+}
+
+////////////////////////////////////////////////////////////////////////////////
+
+type ObjectQuery = {
+  itemId: string;
+  organizationId: string;
+  file: string;
+};
+
+abstract class ObjectRequest implements BaseRequest {
+  method = 'post';
+
+  query: ObjectQuery;
+
+  constructor(query: ObjectQuery) {
+    this.query = query;
+  }
+}
+
+////////////////////////////////////////////////////////////////////////////////
+
+type ObjectFolderBody = {
+  name: string;
+};
+
+export class ObjectFolderRequest extends ObjectRequest {
+  path = '/object/folder';
+
+  body: ObjectFolderBody;
+
+  constructor(query: ObjectQuery, body: ObjectFolderBody) {
+    super(query);
+    this.body = body;
+  }
+}

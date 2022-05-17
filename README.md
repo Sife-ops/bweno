@@ -1,6 +1,7 @@
 # bweno
 
-Deno client library for Bitwarden local CLI server REST API. Pronounced as Spanish 'bueno'.
+Deno client library for Bitwarden CLI's local REST API. Pronounced as Spanish
+'bueno', meaning 'good'.
 
 ## todo
 * dedicated account for testing
