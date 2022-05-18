@@ -11,8 +11,16 @@ import {
   SecureNote,
 } from './item.ts';
 
+interface ClientConfig {
+  url?: string;
+}
+
 export class Client {
-  constructor(private url: string) {}
+  private url: string;
+
+  constructor(config: ClientConfig) {
+    this.url = config.url ? config.url : 'http://localhost:8087';
+  }
 
   private async request(e: string, i: RequestInit) {
     const response = await fetch(`${this.url}${e}`, i);
@@ -100,8 +108,8 @@ export class Client {
 export class Bweno {
   private client: Client;
 
-  constructor(url: string = 'http://localhost:8087') {
-    this.client = new Client(url);
+  constructor(config: ClientConfig) {
+    this.client = new Client(config);
   }
 
   get create() {
