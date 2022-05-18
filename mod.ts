@@ -1,4 +1,5 @@
 import * as t from './type.ts';
+import * as g from './item.ts';
 
 export class Calls {
   constructor(private url: string) {}
@@ -45,35 +46,6 @@ export class Calls {
     }
   }
 }
-
-//================================== TEST ====================================//
-//VVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVV
-
-// Deno.test({
-//   name: 'temp',
-//   fn: async () => {
-//     //
-//     const a = new Calls('http://localhost:8087');
-//     const res = await a.post('/object/item', {
-//       organizationId: null,
-//       collectionIds: null,
-//       folderId: null,
-//       type: 1,
-//       name: 'elden ring',
-//       notes: 'Some notes about this item.',
-//       favorite: false,
-//       fields: [],
-//       login: {
-//         password: 'myp@ssword123',
-//       },
-//       reprompt: 0,
-//     });
-//     console.log(res);
-//   },
-// });
-
-//^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
-//================================== TEST ====================================//
 
 interface BaseRequest {
   method: string;
@@ -156,14 +128,17 @@ abstract class ItemRequest implements BaseRequest {
   path = '/object/item';
 }
 
-type ObjectItemLoginBody = {
-  username: string;
-  password: string;
-};
+export class ItemLoginRequest extends ItemRequest {
+  body: g.Login;
+  constructor(body: g.LoginIface) {
+    super();
+    this.body = new g.Login(body);
+  }
+}
 
-class ItemLoginRequest extends ItemRequest {
-  body: ObjectItemLoginBody;
-  constructor(body: ObjectItemLoginBody) {
+export class ItemSecureNoteRequest extends ItemRequest {
+  body: g.SecureNote;
+  constructor(body: g.SecureNote) {
     super();
     this.body = body;
   }
@@ -185,7 +160,7 @@ type ObjectFolderBody = {
   name: string;
 };
 
-class ObjectFolderRequest implements BaseRequest {
+export class ObjectFolderRequest implements BaseRequest {
   method = 'post';
   path = '/object/folder';
 
