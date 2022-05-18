@@ -46,6 +46,35 @@ export class Calls {
   }
 }
 
+//================================== TEST ====================================//
+//VVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVV
+
+// Deno.test({
+//   name: 'temp',
+//   fn: async () => {
+//     //
+//     const a = new Calls('http://localhost:8087');
+//     const res = await a.post('/object/item', {
+//       organizationId: null,
+//       collectionIds: null,
+//       folderId: null,
+//       type: 1,
+//       name: 'elden ring',
+//       notes: 'Some notes about this item.',
+//       favorite: false,
+//       fields: [],
+//       login: {
+//         password: 'myp@ssword123',
+//       },
+//       reprompt: 0,
+//     });
+//     console.log(res);
+//   },
+// });
+
+//^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+//================================== TEST ====================================//
+
 interface BaseRequest {
   method: string;
   path: string;
@@ -140,17 +169,6 @@ class ItemLoginRequest extends ItemRequest {
   }
 }
 
-Deno.test({
-  name: 'ObjectItemLoginRequest',
-  fn: () => {
-    const o = new ItemLoginRequest({
-      username: 'a',
-      password: 'b',
-    });
-    console.log(o);
-  },
-});
-
 ////////////////////////////////////////////////////////////////////////////////
 
 type ObjectAttachmentQuery = {
@@ -177,16 +195,6 @@ class ObjectFolderRequest implements BaseRequest {
     this.body = body;
   }
 }
-
-Deno.test({
-  name: 'ObjectFolderRequest',
-  fn: () => {
-    const o = new ObjectFolderRequest({
-      name: 'a',
-    });
-    console.log(o);
-  },
-});
 
 ////////////////////////////////////////////////////////////////////////////////
 

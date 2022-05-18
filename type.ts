@@ -1,6 +1,9 @@
 export interface bwApiResonse {
   success: boolean;
   message?: string;
+  data?: {
+    id?: string;
+  };
 }
 
 export type bwObjectType =
