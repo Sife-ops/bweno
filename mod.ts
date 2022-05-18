@@ -128,7 +128,7 @@ abstract class ItemRequest implements BaseRequest {
   path = '/object/item';
 }
 
-export class ItemLoginRequest extends ItemRequest {
+export class LoginRequest extends ItemRequest {
   body: g.Login;
   constructor(body: g.LoginIface) {
     super();
@@ -136,11 +136,27 @@ export class ItemLoginRequest extends ItemRequest {
   }
 }
 
-export class ItemSecureNoteRequest extends ItemRequest {
+export class SecureNoteRequest extends ItemRequest {
   body: g.SecureNote;
-  constructor(body: g.SecureNote) {
+  constructor(body: g.Item) {
     super();
-    this.body = body;
+    this.body = new g.SecureNote(body);
+  }
+}
+
+export class CardRequest extends ItemRequest {
+  body: g.Card;
+  constructor(body: g.CardIface) {
+    super();
+    this.body = new g.Card(body);
+  }
+}
+
+export class IdentityRequest extends ItemRequest {
+  body: g.Identity;
+  constructor(body: g.IdentityIface) {
+    super();
+    this.body = new g.Identity(body);
   }
 }
 

@@ -4,7 +4,7 @@ interface Field {
   type?: number;
 }
 
-interface Item {
+export interface Item {
   organizationId?: string;
   collectionIds?: string;
   folderId?: string;
@@ -91,7 +91,7 @@ interface ItemCard {
   code?: string;
 }
 
-interface CardIface extends Item {
+export interface CardIface extends Item {
   card?: ItemCard;
 }
 
@@ -140,7 +140,7 @@ interface ItemIdentity {
   licenseNumber?: string;
 }
 
-interface IdentityIface extends Item {
+export interface IdentityIface extends Item {
   identity?: ItemIdentity;
 }
 
