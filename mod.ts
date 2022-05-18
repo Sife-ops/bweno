@@ -1,12 +1,22 @@
-import * as t from './type.ts';
-import * as g from './item.ts';
+import { bwApiResonse } from './type.ts';
+
+import {
+  LoginIface,
+  Item,
+  Card,
+  CardIface,
+  Identity,
+  IdentityIface,
+  Login,
+  SecureNote,
+} from './item.ts';
 
 export class Client {
   constructor(private url: string) {}
 
   private async request(e: string, i: RequestInit) {
     const response = await fetch(`${this.url}${e}`, i);
-    const parsed: t.bwApiResonse = await response.json();
+    const parsed: bwApiResonse = await response.json();
     if (!parsed.success) {
       throw new Error(`API Error: ${parsed.message}`);
     }
@@ -37,37 +47,39 @@ export class Client {
     return await this.request(e, { method: 'DELETE' });
   }
 
-  private paramToString(
-    path: string,
-    obj: Record<string, string | number | boolean>
-  ): string {
-    const keys = Object.keys(obj);
-    if (keys.length > 0) {
-      let p = path;
-      keys.map((e) => {
-        p = p.replace(`:${e}`, obj[e].toString());
-      });
-      return p;
+  private paramReplace(path: string, obj?: QueryParam): string {
+    if (obj) {
+      const keys = Object.keys(obj);
+      if (keys.length > 0) {
+        let p = path;
+        keys.map((e) => {
+          p = p.replace(`:${e}`, obj[e].toString());
+        });
+        return p;
+      } else {
+        return path;
+      }
     } else {
       return path;
     }
   }
 
-  private queryToString(obj: Record<string, unknown>): string {
-    const keys = Object.keys(obj);
-    if (keys.length > 0) {
-      return '?' + keys.map((key) => `${key}=${obj[key]}`).join('&');
+  private queryToString(obj?: QueryParam): string {
+    if (obj) {
+      const keys = Object.keys(obj);
+      if (keys.length > 0) {
+        return '?' + keys.map((key) => `${key}=${obj[key]}`).join('&');
+      } else {
+        return '';
+      }
     } else {
       return '';
     }
   }
 
   async processRequest(o: BaseRequest) {
-    let path = this.paramToString(o.path, o.param);
-
-    if (o.query) {
-      path = path + this.queryToString(o.query);
-    }
+    let path = this.paramReplace(o.path, o.param);
+    path = path + this.queryToString(o.query);
 
     if (
       o.method === 'get' ||
@@ -100,30 +112,16 @@ export class Bweno {
 export class create {
   constructor(private client: Client) {}
 
-  async login(body: g.LoginIface) {
+  async login(body: LoginIface) {
     const login = new LoginRequest(body);
     return await this.client.processRequest(login);
   }
 
-  async secureNote(body: g.Item) {
+  async secureNote(body: Item) {
     const secureNote = new SecureNoteRequest(body);
     return await this.client.processRequest(secureNote);
   }
 }
-
-Deno.test({
-  name: 'temp',
-  fn: async () => {
-    const bweno = new Bweno();
-    await bweno.create.login({
-      name: 'asdf',
-      login: {
-        password: 'a',
-        username: 'b',
-      },
-    });
-  },
-});
 
 ////////////////////////////////////////////////////////////////////////////////
 
@@ -132,10 +130,9 @@ type QueryParam = Record<string, string | number | boolean>;
 interface BaseRequest {
   method: string;
   path: string;
-  // todo: make optional
-  param: QueryParam;
+  param?: QueryParam;
   query?: QueryParam;
-  body?: g.Item;
+  body?: Item;
 }
 
 ////////////////////////////////////////////////////////////////////////////////
@@ -156,7 +153,6 @@ type GenerateQuery = {
 export class GenerateRequest implements BaseRequest {
   method = 'get';
   path = '/generate';
-  param = {};
 
   query: GenerateQuery;
 
@@ -170,7 +166,6 @@ export class GenerateRequest implements BaseRequest {
 export class StatusRequest implements BaseRequest {
   method = 'get';
   path = '/status';
-  param = {};
 }
 
 ////////////////////////////////////////////////////////////////////////////////
@@ -212,38 +207,37 @@ export class ListObjectRequest implements BaseRequest {
 abstract class ItemRequest implements BaseRequest {
   method = 'post';
   path = '/object/item';
-  param = {};
 }
 
 export class LoginRequest extends ItemRequest {
-  body: g.Login;
-  constructor(body: g.LoginIface) {
+  body: Login;
+  constructor(body: LoginIface) {
     super();
-    this.body = new g.Login(body);
+    this.body = new Login(body);
   }
 }
 
 export class SecureNoteRequest extends ItemRequest {
-  body: g.SecureNote;
-  constructor(body: g.Item) {
+  body: SecureNote;
+  constructor(body: Item) {
     super();
-    this.body = new g.SecureNote(body);
+    this.body = new SecureNote(body);
   }
 }
 
 export class CardRequest extends ItemRequest {
-  body: g.Card;
-  constructor(body: g.CardIface) {
+  body: Card;
+  constructor(body: CardIface) {
     super();
-    this.body = new g.Card(body);
+    this.body = new Card(body);
   }
 }
 
 export class IdentityRequest extends ItemRequest {
-  body: g.Identity;
-  constructor(body: g.IdentityIface) {
+  body: Identity;
+  constructor(body: IdentityIface) {
     super();
-    this.body = new g.Identity(body);
+    this.body = new Identity(body);
   }
 }
 
@@ -266,7 +260,6 @@ type ObjectFolderBody = {
 export class ObjectFolderRequest implements BaseRequest {
   method = 'post';
   path = '/object/folder';
-  param = {};
 
   body: ObjectFolderBody;
 
