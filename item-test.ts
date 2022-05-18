@@ -16,7 +16,7 @@ Deno.test({
       name: 'asdf',
     });
 
-    let res = await calls.post('/object/item', login);
+    let res = await calls['post']('/object/item', login);
 
     if (!res.success) {
       console.log('missing required field...');
@@ -26,7 +26,7 @@ Deno.test({
     // console.log(res);
     console.log(JSON.stringify(res, null, 2));
 
-    res = await calls.delete(`/object/item/${res.data?.id}`);
+    res = await calls['delete'](`/object/item/${res.data?.id}`);
 
     if (!res.success) {
       console.log('delete failed...');
@@ -53,7 +53,7 @@ Deno.test({
       notes: 'hi',
     });
 
-    let res = await calls.post('/object/item', secureNote);
+    let res = await calls['post']('/object/item', secureNote);
 
     if (!res.success) {
       console.log('missing required field...');
@@ -63,7 +63,7 @@ Deno.test({
     // console.log(res);
     console.log(JSON.stringify(res, null, 2));
 
-    res = await calls.delete(`/object/item/${res.data?.id}`);
+    res = await calls['delete'](`/object/item/${res.data?.id}`);
 
     if (!res.success) {
       console.log('delete failed...');
@@ -89,7 +89,7 @@ Deno.test({
       name: 'fff',
     });
 
-    let res = await calls.post('/object/item', card);
+    let res = await calls['post']('/object/item', card);
 
     if (!res.success) {
       console.log('missing required field...');
@@ -99,7 +99,7 @@ Deno.test({
     // console.log(res);
     console.log(JSON.stringify(res, null, 2));
 
-    res = await calls.delete(`/object/item/${res.data?.id}`);
+    res = await calls['delete'](`/object/item/${res.data?.id}`);
 
     if (!res.success) {
       console.log('delete failed...');
@@ -125,7 +125,7 @@ Deno.test({
       name: 'gg',
     });
 
-    let res = await calls.post('/object/item', hardcoded);
+    let res = await calls['post']('/object/item', hardcoded);
 
     if (!res.success) {
       console.log('missing required field...');
@@ -135,7 +135,7 @@ Deno.test({
     // console.log(res);
     console.log(JSON.stringify(res, null, 2));
 
-    res = await calls.delete(`/object/item/${res.data?.id}`);
+    res = await calls['delete'](`/object/item/${res.data?.id}`);
 
     if (!res.success) {
       console.log('delete failed...');
