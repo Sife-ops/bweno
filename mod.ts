@@ -16,14 +16,18 @@ interface ClientConfig {
 }
 
 export class Client {
-  private url: string;
+  private config: ClientConfig = {
+    url: 'http://localhost:8087',
+  };
 
-  constructor(config: ClientConfig) {
-    this.url = config.url ? config.url : 'http://localhost:8087';
+  constructor(config?: ClientConfig) {
+    if (config) {
+      this.config = config;
+    }
   }
 
   private async request(e: string, i: RequestInit) {
-    const response = await fetch(`${this.url}${e}`, i);
+    const response = await fetch(`${this.config.url}${e}`, i);
     const parsed: bwApiResonse = await response.json();
     if (!parsed.success) {
       throw new Error(`API Error: ${parsed.message}`);
@@ -108,16 +112,16 @@ export class Client {
 export class Bweno {
   private client: Client;
 
-  constructor(config: ClientConfig) {
+  constructor(config?: ClientConfig) {
     this.client = new Client(config);
   }
 
   get create() {
-    return new create(this.client);
+    return new Creator(this.client);
   }
 }
 
-export class create {
+export class Creator {
   constructor(private client: Client) {}
 
   async login(body: LoginIface) {

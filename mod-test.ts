@@ -1,5 +1,6 @@
 import {
   //
+  Client,
   Bweno,
   LoginRequest,
 } from './mod.ts';
@@ -28,5 +29,24 @@ Deno.test({
         username: 'b',
       },
     });
+  },
+});
+
+Deno.test({
+  name: 'temp',
+  fn: () => {
+    const a = new Client();
+
+    const path = '/object/:object/:id';
+
+    // const param = {
+    //   object: 'item',
+    //   id: '3',
+    // };
+
+    const param = undefined;
+
+    const res = a['paramReplace'](path, param);
+    console.log(res);
   },
 });
