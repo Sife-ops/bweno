@@ -1,7 +1,7 @@
-import { Calls } from './mod.ts';
+import { Client } from './mod.ts';
 import * as i from './item.ts';
 
-const calls = new Calls('http://localhost:8087');
+const calls = new Client('http://localhost:8087');
 
 Deno.test({
   name: 'determine required fields for a LOGIN item',

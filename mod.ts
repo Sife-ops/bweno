@@ -1,7 +1,7 @@
 import * as t from './type.ts';
 import * as g from './item.ts';
 
-export class Calls {
+export class Client {
   constructor(private url: string) {}
 
   private async request(e: string, i: RequestInit) {
@@ -46,6 +46,12 @@ export class Calls {
     }
   }
 }
+
+////////////////////////////////////////////////////////////////////////////////
+
+
+
+////////////////////////////////////////////////////////////////////////////////
 
 interface BaseRequest {
   method: string;
