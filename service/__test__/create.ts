@@ -1,4 +1,4 @@
-import { Bweno } from '../mod.ts';
+import { Bweno } from '../../mod.ts';
 
 Deno.test({
   name: 'folder',

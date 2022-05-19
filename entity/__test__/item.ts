@@ -1,6 +1,5 @@
-import { Client } from './client.ts';
-import { Login } from './item.ts';
-import { Card, Identity, SecureNote } from './item.ts';
+import { Client } from '../../client.ts';
+import { Card, Identity, SecureNote, Login } from '../item.ts';
 
 const calls = new Client({
   url: 'http://localhost:8087',
