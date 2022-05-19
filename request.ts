@@ -1,3 +1,5 @@
+import { Folder } from './entity/folder.ts';
+
 import {
   Card,
   CardIface,
@@ -7,7 +9,9 @@ import {
   Login,
   LoginIface,
   SecureNote,
-} from './item.ts';
+} from './entity/item.ts';
+
+////////////////////////////////////////////////////////////////////////////////
 
 export type QueryParam = Record<string, string | number | boolean>;
 
@@ -17,6 +21,58 @@ export interface BaseRequest {
   param?: QueryParam;
   query?: QueryParam;
   body?: Item;
+}
+
+////////////////////////////////////////////////////////////////////////////////
+
+abstract class ItemRequest implements BaseRequest {
+  method = 'post';
+  path = '/object/item';
+}
+
+export class LoginRequest extends ItemRequest {
+  body: Login;
+  constructor(body: LoginIface) {
+    super();
+    this.body = new Login(body);
+  }
+}
+
+export class SecureNoteRequest extends ItemRequest {
+  body: SecureNote;
+  constructor(body: Item) {
+    super();
+    this.body = new SecureNote(body);
+  }
+}
+
+export class CardRequest extends ItemRequest {
+  body: Card;
+  constructor(body: CardIface) {
+    super();
+    this.body = new Card(body);
+  }
+}
+
+export class IdentityRequest extends ItemRequest {
+  body: Identity;
+  constructor(body: IdentityIface) {
+    super();
+    this.body = new Identity(body);
+  }
+}
+
+////////////////////////////////////////////////////////////////////////////////
+
+export class FolderRequest implements BaseRequest {
+  method = 'post';
+  path = '/object/folder';
+
+  body: Folder;
+
+  constructor(body: Folder) {
+    this.body = body;
+  }
 }
 
 ////////////////////////////////////////////////////////////////////////////////
@@ -83,45 +139,6 @@ export class ListObjectRequest implements BaseRequest {
   constructor(param: ListObjectParam, query: ListObjectQuery) {
     this.param = param;
     this.query = query;
-  }
-}
-
-////////////////////////////////////////////////////////////////////////////////
-
-abstract class ItemRequest implements BaseRequest {
-  method = 'post';
-  path = '/object/item';
-}
-
-export class LoginRequest extends ItemRequest {
-  body: Login;
-  constructor(body: LoginIface) {
-    super();
-    this.body = new Login(body);
-  }
-}
-
-export class SecureNoteRequest extends ItemRequest {
-  body: SecureNote;
-  constructor(body: Item) {
-    super();
-    this.body = new SecureNote(body);
-  }
-}
-
-export class CardRequest extends ItemRequest {
-  body: Card;
-  constructor(body: CardIface) {
-    super();
-    this.body = new Card(body);
-  }
-}
-
-export class IdentityRequest extends ItemRequest {
-  body: Identity;
-  constructor(body: IdentityIface) {
-    super();
-    this.body = new Identity(body);
   }
 }
 

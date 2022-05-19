@@ -101,3 +101,23 @@ export class Client {
     }
   }
 }
+
+Deno.test({
+  name: 'temp',
+  fn: async () => {
+    const c = new Client();
+    const r = await c['post']('/object/folder', {
+      name: 'asdf',
+    });
+    if (!r.success) return;
+    console.log(r);
+    const d = await c['delete'](`/object/folder/${r.data.id}`);
+    if (!d.success) {
+      console.log('delete failed...');
+      return;
+    } else {
+      console.log('deleting...');
+      console.log(d);
+    }
+  },
+});

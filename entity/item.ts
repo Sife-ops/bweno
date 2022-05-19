@@ -2,6 +2,7 @@ interface Field {
   name?: string;
   value?: string;
   type?: number; // todo: usage? up to 255?
+  // todo: lindedId
 }
 
 export interface Item {
@@ -13,7 +14,6 @@ export interface Item {
   favorite?: boolean;
   fields?: Field[];
   reprompt?: number;
-
 }
 
 ////////////////////////////////////////////////////////////////////////////////
@@ -28,6 +28,7 @@ interface ItemLogin {
   username?: string;
   password?: string;
   totp?: string;
+  // todo: passwordRevisionDate
 }
 
 export interface LoginIface extends Item {
