@@ -1,13 +1,13 @@
-import { bwApiResonse } from './type.ts';
+// todo: make separate files
 
 import {
-  LoginIface,
-  Item,
   Card,
   CardIface,
   Identity,
   IdentityIface,
+  Item,
   Login,
+  LoginIface,
   SecureNote,
 } from './item.ts';
 
@@ -28,7 +28,8 @@ export class Client {
 
   private async request(e: string, i: RequestInit) {
     const response = await fetch(`${this.config.url}${e}`, i);
-    const parsed: bwApiResonse = await response.json();
+    // const parsed: bwApiResonse = await response.json();
+    const parsed = await response.json();
     if (!parsed.success) {
       throw new Error(`API Error: ${parsed.message}`);
     }
@@ -89,17 +90,17 @@ export class Client {
     }
   }
 
-  async processRequest(o: BaseRequest) {
-    let path = this.paramReplace(o.path, o.param);
-    path = path + this.queryToString(o.query);
+  async processRequest(obj: BaseRequest) {
+    let path = this.paramReplace(obj.path, obj.param);
+    path = path + this.queryToString(obj.query);
 
     if (
-      o.method === 'get' ||
-      o.method === 'post' ||
-      o.method === 'put' ||
-      o.method === 'delete'
+      obj.method === 'get' ||
+      obj.method === 'post' ||
+      obj.method === 'put' ||
+      obj.method === 'delete'
     ) {
-      return await this[o.method](path, o.body);
+      return await this[obj.method](path, obj.body);
     } else {
       // todo: better error
       throw new Error('something');
@@ -112,19 +113,18 @@ export class Client {
 export class Bweno {
   private client: Client;
 
+  create: Create;
+
   constructor(config?: ClientConfig) {
     this.client = new Client(config);
-  }
-
-  get create() {
-    return new Creator(this.client);
+    this.create = new Create(this.client);
   }
 }
 
-export class Creator {
+export class Create {
   constructor(private client: Client) {}
 
-  async login(body: LoginIface) {
+  async login(body: LoginIface): Promise<DataResponse<Login>> {
     const login = new LoginRequest(body);
     return await this.client.processRequest(login);
   }
@@ -133,6 +133,33 @@ export class Creator {
     const secureNote = new SecureNoteRequest(body);
     return await this.client.processRequest(secureNote);
   }
+
+  async card(body: CardIface) {
+    const card = new CardRequest(body);
+    return await this.client.processRequest(card);
+  }
+
+  async identity(body: IdentityIface) {
+    const identity = new IdentityRequest(body);
+    return await this.client.processRequest(identity);
+  }
+}
+
+////////////////////////////////////////////////////////////////////////////////
+
+export interface BaseResponse {
+  success: boolean;
+  message?: string;
+  // data?: T;
+}
+
+export interface DataResponse<T> extends BaseResponse {
+  data: T & {
+    object: string;
+    id: string;
+    revisionDate: string;
+    deletedDate?: string;
+  };
 }
 
 ////////////////////////////////////////////////////////////////////////////////

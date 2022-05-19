@@ -1,7 +1,7 @@
 interface Field {
   name?: string;
   value?: string;
-  type?: number;
+  type?: number; // todo: usage? up to 255?
 }
 
 export interface Item {
@@ -13,6 +13,7 @@ export interface Item {
   favorite?: boolean;
   fields?: Field[];
   reprompt?: number;
+
 }
 
 ////////////////////////////////////////////////////////////////////////////////
