@@ -1,9 +1,6 @@
-import {
-  //
-  Client,
-  Bweno,
-  LoginRequest,
-} from './mod.ts';
+import { Bweno } from './mod.ts';
+import { Client } from './client.ts';
+import { LoginRequest } from './request.ts';
 
 Deno.test({
   name: 'temp',

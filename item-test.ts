@@ -1,7 +1,10 @@
-import { Client } from './mod.ts';
-import * as i from './item.ts';
+import { Client } from './client.ts';
+import { Login } from './item.ts';
+import { Card, Identity, SecureNote } from './item.ts';
 
-const calls = new Client('http://localhost:8087');
+const calls = new Client({
+  url: 'http://localhost:8087',
+});
 
 Deno.test({
   name: 'determine required fields for a LOGIN item',
@@ -12,7 +15,7 @@ Deno.test({
       login: {},
     };
 
-    const login = new i.Login({
+    const login = new Login({
       name: 'asdf',
     });
 
@@ -48,7 +51,7 @@ Deno.test({
       secureNote: {},
     };
 
-    const secureNote = new i.SecureNote({
+    const secureNote = new SecureNote({
       name: 'ree',
       notes: 'hi',
     });
