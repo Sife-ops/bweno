@@ -1,6 +1,15 @@
-import { CardIface, IdentityIface, Item, Login, LoginIface } from '../item.ts';
 import { Client } from '../client.ts';
 import { DataResponse } from './response.ts';
+
+import {
+  Card,
+  CardIface,
+  Identity,
+  IdentityIface,
+  Item,
+  Login,
+  LoginIface,
+} from '../item.ts';
 
 import {
   LoginRequest,
@@ -17,17 +26,17 @@ export class Create {
     return await this.client.processRequest(login);
   }
 
-  async secureNote(body: Item) {
+  async secureNote(body: Item): Promise<DataResponse<Item>> {
     const secureNote = new SecureNoteRequest(body);
     return await this.client.processRequest(secureNote);
   }
 
-  async card(body: CardIface) {
+  async card(body: CardIface): Promise<DataResponse<Card>> {
     const card = new CardRequest(body);
     return await this.client.processRequest(card);
   }
 
-  async identity(body: IdentityIface) {
+  async identity(body: IdentityIface): Promise<DataResponse<Identity>> {
     const identity = new IdentityRequest(body);
     return await this.client.processRequest(identity);
   }
