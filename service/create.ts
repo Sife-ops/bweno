@@ -22,22 +22,22 @@ export class Create {
   constructor(private client: Client) {}
 
   async login(body: LoginIface): Promise<DataResponse<Login>> {
-    const login = new LoginRequest(body);
-    return await this.client.processRequest(login);
+    const loginRequest = new LoginRequest(body);
+    return await this.client.processRequest(loginRequest);
   }
 
   async secureNote(body: Item): Promise<DataResponse<Item>> {
-    const secureNote = new SecureNoteRequest(body);
-    return await this.client.processRequest(secureNote);
+    const secureNoteRequest = new SecureNoteRequest(body);
+    return await this.client.processRequest(secureNoteRequest);
   }
 
   async card(body: CardIface): Promise<DataResponse<Card>> {
-    const card = new CardRequest(body);
-    return await this.client.processRequest(card);
+    const cardRequest = new CardRequest(body);
+    return await this.client.processRequest(cardRequest);
   }
 
   async identity(body: IdentityIface): Promise<DataResponse<Identity>> {
-    const identity = new IdentityRequest(body);
-    return await this.client.processRequest(identity);
+    const identityRequest = new IdentityRequest(body);
+    return await this.client.processRequest(identityRequest);
   }
 }
