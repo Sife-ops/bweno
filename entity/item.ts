@@ -24,25 +24,23 @@ abstract class BaseItemClass implements ItemIface {
   fields?: Field[];
   reprompt?: number;
 
-  constructor(args: ItemIface) {
-    this.folderId = args.folderId;
-    this.name = args.name;
-    this.notes = args.notes;
-    this.favorite = args.favorite;
-    this.fields = args.fields;
-    this.reprompt = args.reprompt;
+  constructor(item: ItemIface) {
+    this.folderId = item.folderId;
+    this.name = item.name;
+    this.notes = item.notes;
+    this.favorite = item.favorite;
+    this.fields = item.fields;
+    this.reprompt = item.reprompt;
   }
 }
 
 ////////////////////////////////////////////////////////////////////////////////
 
-interface Uri {
-  match?: string;
-  uri: string;
-}
-
 interface ItemLogin {
-  uris?: Uri[];
+  uris?: {
+    match?: string;
+    uri: string;
+  }[];
   username?: string;
   password?: string;
   totp?: string;
@@ -58,9 +56,9 @@ export class LoginClass extends BaseItemClass {
 
   login: ItemLogin;
 
-  constructor(args: LoginIface) {
-    super(args);
-    this.login = args.login ? args.login : {};
+  constructor(item: LoginIface) {
+    super(item);
+    this.login = item.login ? item.login : {};
   }
 }
 
@@ -72,8 +70,8 @@ export class SecureNoteClass extends BaseItemClass {
     type: 0, // todo: usage? up to 255?
   };
 
-  constructor(args: ItemIface) {
-    super(args);
+  constructor(item: ItemIface) {
+    super(item);
   }
 }
 
@@ -97,9 +95,9 @@ export class CardClass extends BaseItemClass {
 
   card: ItemCard;
 
-  constructor(args: CardIface) {
-    super(args);
-    this.card = args.card ? args.card : {};
+  constructor(item: CardIface) {
+    super(item);
+    this.card = item.card ? item.card : {};
   }
 }
 
@@ -135,8 +133,8 @@ export class IdentityClass extends BaseItemClass {
 
   identity: ItemIdentity;
 
-  constructor(args: IdentityIface) {
-    super(args);
-    this.identity = args.identity ? args.identity : {};
+  constructor(item: IdentityIface) {
+    super(item);
+    this.identity = item.identity ? item.identity : {};
   }
 }

@@ -10,6 +10,7 @@ import {
   ItemIface,
   LoginClass,
   LoginIface,
+  SecureNoteClass,
 } from '../entity/item.ts';
 
 import {
@@ -23,51 +24,26 @@ import {
 export class Create {
   constructor(private client: Client) {}
 
-  /**
-   * Login
-   * @param body
-   * @returns
-   */
   async login(body: LoginIface): Promise<DataResponse<LoginClass>> {
     const loginRequest = new LoginRequest(body);
     return await this.client.processRequest(loginRequest);
   }
 
-  /**
-   * Note
-   * @param body
-   * @returns
-   */
-  async secureNote(body: ItemIface): Promise<DataResponse<ItemIface>> {
+  async secureNote(body: ItemIface): Promise<DataResponse<SecureNoteClass>> {
     const secureNoteRequest = new SecureNoteRequest(body);
     return await this.client.processRequest(secureNoteRequest);
   }
 
-  /**
-   * Card
-   * @param body
-   * @returns
-   */
   async card(body: CardIface): Promise<DataResponse<CardClass>> {
     const cardRequest = new CardRequest(body);
     return await this.client.processRequest(cardRequest);
   }
 
-  /**
-   * Identity
-   * @param body
-   * @returns
-   */
   async identity(body: IdentityIface): Promise<DataResponse<IdentityClass>> {
     const identityRequest = new IdentityRequest(body);
     return await this.client.processRequest(identityRequest);
   }
 
-  /**
-   * Folder
-   * @param body
-   * @returns
-   */
   async folder(body: Folder): Promise<DataResponse<Folder>> {
     const folderRequest = new FolderRequest(body);
     return await this.client.processRequest(folderRequest);
