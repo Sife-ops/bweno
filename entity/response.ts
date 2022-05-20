@@ -32,3 +32,16 @@ export interface GenerateResponse extends BaseResponse {
     data: string;
   };
 }
+
+export interface StatusResponse extends BaseResponse {
+  data: {
+    object: string;
+    template: {
+      serverUrl?: string;
+      lastSync: string;
+      userEmail: string;
+      userId: string;
+      status: string;
+    };
+  };
+}
