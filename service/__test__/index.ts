@@ -1,1 +1,2 @@
-import './create.ts'
+import './create.ts';
+import './delete.ts';

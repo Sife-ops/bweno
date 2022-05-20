@@ -15,6 +15,11 @@ import {
 
 export type QueryParam = Record<string, string | number | boolean>;
 
+export interface ItemId extends QueryParam {
+  item: 'folder' | 'item';
+  id: string;
+}
+
 export interface BaseRequest {
   method: string;
   path: string;
@@ -59,6 +64,19 @@ export class IdentityRequest extends ItemRequest {
   constructor(body: IdentityIface) {
     super();
     this.body = new Identity(body);
+  }
+}
+
+////////////////////////////////////////////////////////////////////////////////
+
+export class DeleteRequest implements BaseRequest {
+  method = 'delete';
+  path = '/object/:item/:id';
+
+  param: ItemId;
+
+  constructor(param: ItemId) {
+    this.param = param;
   }
 }
 
