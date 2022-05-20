@@ -1,14 +1,14 @@
 import { Folder } from './entity/folder.ts';
 
 import {
-  Card,
+  ItemIface,
+  CardClass,
   CardIface,
-  Identity,
+  IdentityClass,
   IdentityIface,
-  Item,
-  Login,
+  LoginClass,
   LoginIface,
-  SecureNote,
+  SecureNoteClass,
 } from './entity/item.ts';
 
 ////////////////////////////////////////////////////////////////////////////////
@@ -25,7 +25,7 @@ export interface BaseRequest {
   path: string;
   param?: QueryParam;
   query?: QueryParam;
-  body?: Item;
+  body?: ItemIface;
 }
 
 ////////////////////////////////////////////////////////////////////////////////
@@ -36,34 +36,34 @@ abstract class ItemRequest implements BaseRequest {
 }
 
 export class LoginRequest extends ItemRequest {
-  body: Login;
+  body: LoginClass;
   constructor(body: LoginIface) {
     super();
-    this.body = new Login(body);
+    this.body = new LoginClass(body);
   }
 }
 
 export class SecureNoteRequest extends ItemRequest {
-  body: SecureNote;
-  constructor(body: Item) {
+  body: SecureNoteClass;
+  constructor(body: ItemIface) {
     super();
-    this.body = new SecureNote(body);
+    this.body = new SecureNoteClass(body);
   }
 }
 
 export class CardRequest extends ItemRequest {
-  body: Card;
+  body: CardClass;
   constructor(body: CardIface) {
     super();
-    this.body = new Card(body);
+    this.body = new CardClass(body);
   }
 }
 
 export class IdentityRequest extends ItemRequest {
-  body: Identity;
+  body: IdentityClass;
   constructor(body: IdentityIface) {
     super();
-    this.body = new Identity(body);
+    this.body = new IdentityClass(body);
   }
 }
 

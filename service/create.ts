@@ -3,12 +3,12 @@ import { DataResponse } from '../entity/response.ts';
 import { Folder } from '../entity/folder.ts';
 
 import {
-  Card,
+  CardClass,
   CardIface,
-  Identity,
+  IdentityClass,
   IdentityIface,
-  Item,
-  Login,
+  ItemIface,
+  LoginClass,
   LoginIface,
 } from '../entity/item.ts';
 
@@ -28,7 +28,7 @@ export class Create {
    * @param body
    * @returns
    */
-  async login(body: LoginIface): Promise<DataResponse<Login>> {
+  async login(body: LoginIface): Promise<DataResponse<LoginClass>> {
     const loginRequest = new LoginRequest(body);
     return await this.client.processRequest(loginRequest);
   }
@@ -38,7 +38,7 @@ export class Create {
    * @param body
    * @returns
    */
-  async secureNote(body: Item): Promise<DataResponse<Item>> {
+  async secureNote(body: ItemIface): Promise<DataResponse<ItemIface>> {
     const secureNoteRequest = new SecureNoteRequest(body);
     return await this.client.processRequest(secureNoteRequest);
   }
@@ -48,7 +48,7 @@ export class Create {
    * @param body
    * @returns
    */
-  async card(body: CardIface): Promise<DataResponse<Card>> {
+  async card(body: CardIface): Promise<DataResponse<CardClass>> {
     const cardRequest = new CardRequest(body);
     return await this.client.processRequest(cardRequest);
   }
@@ -58,7 +58,7 @@ export class Create {
    * @param body
    * @returns
    */
-  async identity(body: IdentityIface): Promise<DataResponse<Identity>> {
+  async identity(body: IdentityIface): Promise<DataResponse<IdentityClass>> {
     const identityRequest = new IdentityRequest(body);
     return await this.client.processRequest(identityRequest);
   }

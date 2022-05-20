@@ -2,10 +2,10 @@ interface Field {
   name?: string;
   value?: string;
   type?: number; // todo: usage? up to 255?
-  // todo: lindedId
+  // todo: linkedId
 }
 
-export interface Item {
+export interface ItemIface {
   organizationId?: string;
   collectionIds?: string;
   folderId?: string;
@@ -14,6 +14,24 @@ export interface Item {
   favorite?: boolean;
   fields?: Field[];
   reprompt?: number;
+}
+
+abstract class BaseItemClass implements ItemIface {
+  folderId?: string;
+  name: string;
+  notes?: string;
+  favorite?: boolean;
+  fields?: Field[];
+  reprompt?: number;
+
+  constructor(args: ItemIface) {
+    this.folderId = args.folderId;
+    this.name = args.name;
+    this.notes = args.notes;
+    this.favorite = args.favorite;
+    this.fields = args.fields;
+    this.reprompt = args.reprompt;
+  }
 }
 
 ////////////////////////////////////////////////////////////////////////////////
@@ -31,54 +49,31 @@ interface ItemLogin {
   // todo: passwordRevisionDate
 }
 
-export interface LoginIface extends Item {
+export interface LoginIface extends ItemIface {
   login?: ItemLogin;
 }
 
-export class Login implements LoginIface {
+export class LoginClass extends BaseItemClass {
   type = 1;
 
-  folderId?: string;
-  name: string;
-  notes?: string;
-  favorite?: boolean;
-  fields?: Field[];
   login: ItemLogin;
-  reprompt?: number;
 
   constructor(args: LoginIface) {
-    this.folderId = args.folderId;
-    this.name = args.name;
-    this.notes = args.notes;
-    this.favorite = args.favorite;
-    this.fields = args.fields;
+    super(args);
     this.login = args.login ? args.login : {};
-    this.reprompt = args.reprompt;
   }
 }
 
 ////////////////////////////////////////////////////////////////////////////////
 
-export class SecureNote implements Item {
+export class SecureNoteClass extends BaseItemClass {
   type = 2;
   secureNote = {
-    type: 0,
+    type: 0, // todo: usage? up to 255?
   };
 
-  folderId?: string;
-  name: string;
-  notes?: string;
-  favorite?: boolean;
-  fields?: Field[];
-  reprompt?: number;
-
-  constructor(args: Item) {
-    this.folderId = args.folderId;
-    this.name = args.name;
-    this.notes = args.notes;
-    this.favorite = args.favorite;
-    this.fields = args.fields;
-    this.reprompt = args.reprompt;
+  constructor(args: ItemIface) {
+    super(args);
   }
 }
 
@@ -93,29 +88,18 @@ interface ItemCard {
   code?: string;
 }
 
-export interface CardIface extends Item {
+export interface CardIface extends ItemIface {
   card?: ItemCard;
 }
 
-export class Card implements CardIface {
+export class CardClass extends BaseItemClass {
   type = 3;
 
-  folderId?: string;
-  name: string;
-  notes?: string;
-  favorite?: boolean;
-  fields?: Field[];
   card: ItemCard;
-  reprompt?: number;
 
   constructor(args: CardIface) {
-    this.folderId = args.folderId;
-    this.name = args.name;
-    this.notes = args.notes;
-    this.favorite = args.favorite;
-    this.fields = args.fields;
+    super(args);
     this.card = args.card ? args.card : {};
-    this.reprompt = args.reprompt;
   }
 }
 
@@ -142,28 +126,17 @@ interface ItemIdentity {
   licenseNumber?: string;
 }
 
-export interface IdentityIface extends Item {
+export interface IdentityIface extends ItemIface {
   identity?: ItemIdentity;
 }
 
-export class Identity implements IdentityIface {
+export class IdentityClass extends BaseItemClass {
   type = 4;
 
-  folderId?: string;
-  name: string;
-  notes?: string;
-  favorite?: boolean;
-  fields?: Field[];
   identity: ItemIdentity;
-  reprompt?: number;
 
   constructor(args: IdentityIface) {
-    this.folderId = args.folderId;
-    this.name = args.name;
-    this.notes = args.notes;
-    this.favorite = args.favorite;
-    this.fields = args.fields;
+    super(args);
     this.identity = args.identity ? args.identity : {};
-    this.reprompt = args.reprompt;
   }
 }

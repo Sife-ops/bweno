@@ -34,6 +34,7 @@ export class Client {
     return await this.request(e, { method: 'GET' });
   }
 
+  // todo: specific type
   private async post(e: string, b?: unknown) {
     return await this.request(e, {
       method: 'POST',
@@ -42,6 +43,7 @@ export class Client {
     });
   }
 
+  // todo: specific type
   private async put(e: string, b?: unknown) {
     return await this.request(e, {
       method: 'PUT',
