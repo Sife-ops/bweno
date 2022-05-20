@@ -62,7 +62,7 @@ export class Client {
       if (keys.length > 0) {
         let p = path;
         keys.map((e) => {
-          p = p.replace(`:${e}`, obj[e].toString());
+          p = p.replace(`:${e}`, `${obj[e]}`);
         });
         return p;
       } else {

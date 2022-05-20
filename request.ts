@@ -1,3 +1,5 @@
+// todo: separate files
+
 import { Folder } from './entity/folder.ts';
 
 import {
@@ -13,7 +15,7 @@ import {
 
 ////////////////////////////////////////////////////////////////////////////////
 
-export type QueryParam = Record<string, string | number | boolean>;
+export type QueryParam = Record<string, string | number | boolean | undefined>;
 
 export interface ItemId extends QueryParam {
   item: 'folder' | 'item';
@@ -26,6 +28,39 @@ export interface BaseRequest {
   param?: QueryParam;
   query?: QueryParam;
   body?: ItemIface;
+}
+
+////////////////////////////////////////////////////////////////////////////////
+
+export interface GenerateQuery extends QueryParam {
+  uppercase?: boolean;
+  lowercase?: boolean;
+  number?: boolean;
+  special?: boolean;
+  length?: number;
+  type?: 'passphrase' | 'password';
+  separator?: string;
+  words?: number;
+  capitalize?: boolean;
+  includeNumber?: boolean;
+}
+
+export class GenerateRequest implements BaseRequest {
+  method = 'get';
+  path = '/generate';
+
+  query?: GenerateQuery;
+
+  constructor(query?: GenerateQuery) {
+    this.query = query;
+  }
+}
+
+////////////////////////////////////////////////////////////////////////////////
+
+export class StatusRequest implements BaseRequest {
+  method = 'get';
+  path = '/status';
 }
 
 ////////////////////////////////////////////////////////////////////////////////
@@ -67,21 +102,6 @@ export class IdentityRequest extends ItemRequest {
   }
 }
 
-////////////////////////////////////////////////////////////////////////////////
-
-export class DeleteRequest implements BaseRequest {
-  method = 'delete';
-  path = '/object/:item/:id';
-
-  param: ItemId;
-
-  constructor(param: ItemId) {
-    this.param = param;
-  }
-}
-
-////////////////////////////////////////////////////////////////////////////////
-
 export class FolderRequest implements BaseRequest {
   method = 'post';
   path = '/object/folder';
@@ -91,39 +111,6 @@ export class FolderRequest implements BaseRequest {
   constructor(body: Folder) {
     this.body = body;
   }
-}
-
-////////////////////////////////////////////////////////////////////////////////
-
-type GenerateQuery = {
-  uppercase: boolean;
-  lowercase: boolean;
-  number: boolean;
-  special: boolean;
-  length: number;
-  type: 'passphrase' | 'password';
-  separator: string;
-  words: number;
-  capitalize: boolean;
-  includeNumber: boolean;
-};
-
-export class GenerateRequest implements BaseRequest {
-  method = 'get';
-  path = '/generate';
-
-  query: GenerateQuery;
-
-  constructor(query: GenerateQuery) {
-    this.query = query;
-  }
-}
-
-////////////////////////////////////////////////////////////////////////////////
-
-export class StatusRequest implements BaseRequest {
-  method = 'get';
-  path = '/status';
 }
 
 ////////////////////////////////////////////////////////////////////////////////
@@ -194,3 +181,16 @@ type ObjectOrgCollectionQuery = {
 };
 
 // todo: ObjectOrgCollectionRequest
+
+////////////////////////////////////////////////////////////////////////////////
+
+export class DeleteRequest implements BaseRequest {
+  method = 'delete';
+  path = '/object/:item/:id';
+
+  param: ItemId;
+
+  constructor(param: ItemId) {
+    this.param = param;
+  }
+}

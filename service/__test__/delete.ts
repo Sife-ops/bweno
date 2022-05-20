@@ -1,5 +1,5 @@
-import { assert, logger } from '../../test-deps.ts';
 import { Bweno } from '../../mod.ts';
+import { assert, logger } from '../../test-deps.ts';
 
 Deno.test({
   name: 'delete',

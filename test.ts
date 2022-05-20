@@ -1,2 +1,1 @@
-// import './test/index.ts';
-// import './mod.ts'
+import './service/__test__/index.ts';
