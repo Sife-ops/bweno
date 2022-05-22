@@ -1,16 +1,13 @@
 import { Client } from '../client.ts';
-import { GenerateQuery, GenerateRequest } from '../request.ts';
-import { GenerateResponse } from '../object/response.ts';
+import { GenerateQueryIface, GenerateRequestClass } from '../request.ts';
 
-export type GenerateMethod = (
-  query?: GenerateQuery
-) => Promise<GenerateResponse>;
+export type GenerateMethod = (query?: GenerateQueryIface) => Promise<unknown>;
 
 export class Generate {
   constructor(private client: Client) {}
 
-  async generate(query?: GenerateQuery): Promise<GenerateResponse> {
-    const generateRequest = new GenerateRequest(query);
+  async generate(query?: GenerateQueryIface) {
+    const generateRequest = new GenerateRequestClass(query);
     return await this.client.processRequest(generateRequest);
   }
 }

@@ -89,9 +89,7 @@ export interface CardItemIface extends ItemIface {
 
 export class CardItemClass extends ItemClass {
   type = 3;
-
   card: ItemCardIface;
-
   constructor(item: CardItemIface) {
     super(item);
     this.card = item.card;
@@ -127,9 +125,7 @@ export interface IdentityItemIface extends ItemIface {
 
 export class IdentityItemClass extends ItemClass {
   type = 4;
-
   identity: ItemIdentityIface;
-
   constructor(item: IdentityItemIface) {
     super(item);
     this.identity = item.identity ? item.identity : {};

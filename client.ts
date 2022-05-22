@@ -1,4 +1,4 @@
-import { BaseRequest, QueryParam } from './request.ts';
+import {BaseRequestIface, QueryParamType} from './request.ts';
 
 /**
  * Client configuration.
@@ -56,7 +56,7 @@ export class Client {
     return await this.request(e, { method: 'DELETE' });
   }
 
-  private paramReplace(path: string, obj?: QueryParam): string {
+  private paramReplace(path: string, obj?: QueryParamType): string {
     if (obj) {
       const keys = Object.keys(obj);
       if (keys.length > 0) {
@@ -73,7 +73,7 @@ export class Client {
     }
   }
 
-  private queryToString(obj?: QueryParam): string {
+  private queryToString(obj?: QueryParamType): string {
     if (obj) {
       const keys = Object.keys(obj);
       if (keys.length > 0) {
@@ -86,7 +86,7 @@ export class Client {
     }
   }
 
-  async processRequest(obj: BaseRequest) {
+  async processRequest(obj: BaseRequestIface) {
     let path = this.paramReplace(obj.path, obj.param);
     path = path + this.queryToString(obj.query);
 
