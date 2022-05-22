@@ -1,11 +1,11 @@
 import { Bweno } from '../mod.ts';
 import { Client } from '../client.ts';
-import { LoginRequest } from '../request.ts';
+import { LoginItemRequestClass } from '../request.ts';
 
 Deno.test({
   name: 'temp',
   fn: () => {
-    const a = new LoginRequest({
+    const a = new LoginItemRequestClass({
       name: 'fff',
       login: {
         username: 'ggg',

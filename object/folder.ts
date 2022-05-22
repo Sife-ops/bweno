@@ -1,3 +1,3 @@
-export interface Folder {
+export interface FolderItemIface {
   name: string;
 }

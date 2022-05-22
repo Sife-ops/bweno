@@ -1,6 +1,6 @@
 // todo: separate files
 
-import { Folder } from './object/folder.ts';
+import { FolderItemIface } from './object/folder.ts';
 
 import {
   CardItemClass,
@@ -15,24 +15,24 @@ import {
 
 ////////////////////////////////////////////////////////////////////////////////
 
-export type QueryParam = Record<string, string | number | boolean | undefined>;
+export type QueryParamType = Record<string, string | number | boolean | undefined>;
 
-export interface ItemId extends QueryParam {
+export interface ItemIdParamIface extends QueryParamType {
   item: 'folder' | 'item';
   id: string;
 }
 
-export interface BaseRequest {
+export interface BaseRequestIface {
   method: string;
   path: string;
-  param?: QueryParam;
-  query?: QueryParam;
+  param?: QueryParamType;
+  query?: QueryParamType;
   body?: ItemIface;
 }
 
 ////////////////////////////////////////////////////////////////////////////////
 
-export interface GenerateQuery extends QueryParam {
+export interface GenerateQueryIface extends QueryParamType {
   uppercase?: boolean;
   lowercase?: boolean;
   number?: boolean;
@@ -45,32 +45,30 @@ export interface GenerateQuery extends QueryParam {
   includeNumber?: boolean;
 }
 
-export class GenerateRequest implements BaseRequest {
+export class GenerateRequestClass implements BaseRequestIface {
   method = 'get';
   path = '/generate';
-
-  query?: GenerateQuery;
-
-  constructor(query?: GenerateQuery) {
+  query?: GenerateQueryIface;
+  constructor(query?: GenerateQueryIface) {
     this.query = query;
   }
 }
 
 ////////////////////////////////////////////////////////////////////////////////
 
-export class StatusRequest implements BaseRequest {
+export class StatusRequestClass implements BaseRequestIface {
   method = 'get';
   path = '/status';
 }
 
 ////////////////////////////////////////////////////////////////////////////////
 
-abstract class ItemRequest implements BaseRequest {
+abstract class ItemRequestClass implements BaseRequestIface {
   method = 'post';
   path = '/object/item';
 }
 
-export class LoginRequest extends ItemRequest {
+export class LoginItemRequestClass extends ItemRequestClass {
   body: LoginItemClass;
   constructor(body: LoginItemIface) {
     super();
@@ -78,7 +76,7 @@ export class LoginRequest extends ItemRequest {
   }
 }
 
-export class SecureNoteRequest extends ItemRequest {
+export class SecureNoteItemRequestClass extends ItemRequestClass {
   body: SecureNoteClass;
   constructor(body: ItemIface) {
     super();
@@ -86,7 +84,7 @@ export class SecureNoteRequest extends ItemRequest {
   }
 }
 
-export class CardRequest extends ItemRequest {
+export class CardItemRequestClass extends ItemRequestClass {
   body: CardItemClass;
   constructor(body: CardItemIface) {
     super();
@@ -94,7 +92,7 @@ export class CardRequest extends ItemRequest {
   }
 }
 
-export class IdentityRequest extends ItemRequest {
+export class IdentityItemRequestClass extends ItemRequestClass {
   body: IdentityItemClass;
   constructor(body: IdentityItemIface) {
     super();
@@ -102,13 +100,13 @@ export class IdentityRequest extends ItemRequest {
   }
 }
 
-export class FolderRequest implements BaseRequest {
+export class FolderItemRequestClass implements BaseRequestIface {
   method = 'post';
   path = '/object/folder';
 
-  body: Folder;
+  body: FolderItemIface;
 
-  constructor(body: Folder) {
+  constructor(body: FolderItemIface) {
     this.body = body;
   }
 }
@@ -134,7 +132,7 @@ type ListObjectQuery = {
   trash: boolean;
 };
 
-export class ListObjectRequest implements BaseRequest {
+export class ListObjectRequest implements BaseRequestIface {
   method = 'get';
   path = '/list/object/:object';
 
@@ -163,12 +161,10 @@ type ObjectFolderBody = {
   name: string;
 };
 
-export class ObjectFolderRequest implements BaseRequest {
+export class ObjectFolderItemRequestClass implements BaseRequestIface {
   method = 'post';
   path = '/object/folder';
-
   body: ObjectFolderBody;
-
   constructor(body: ObjectFolderBody) {
     this.body = body;
   }
@@ -184,13 +180,11 @@ type ObjectOrgCollectionQuery = {
 
 ////////////////////////////////////////////////////////////////////////////////
 
-export class DeleteRequest implements BaseRequest {
+export class DeleteRequest implements BaseRequestIface {
   method = 'delete';
   path = '/object/:item/:id';
-
-  param: ItemId;
-
-  constructor(param: ItemId) {
+  param: ItemIdParamIface;
+  constructor(param: ItemIdParamIface) {
     this.param = param;
   }
 }

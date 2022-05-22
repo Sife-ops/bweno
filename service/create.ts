@@ -3,7 +3,7 @@
 
 import { Client } from '../client.ts';
 import { DataResponse } from '../object/response.ts';
-import { Folder } from '../object/folder.ts';
+import { FolderItemIface } from '../object/folder.ts';
 
 import {
   CardItemClass,
@@ -17,38 +17,40 @@ import {
 } from '../object/item.ts';
 
 import {
-  CardRequest,
-  FolderRequest,
-  IdentityRequest,
-  LoginRequest,
-  SecureNoteRequest,
+  CardItemRequestClass,
+  FolderItemRequestClass,
+  IdentityItemRequestClass,
+  LoginItemRequestClass,
+  SecureNoteItemRequestClass,
 } from '../request.ts';
 
 export class Create {
   constructor(private client: Client) {}
 
   async login(body: LoginItemIface): Promise<DataResponse<LoginItemClass>> {
-    const loginRequest = new LoginRequest(body);
+    const loginRequest = new LoginItemRequestClass(body);
     return await this.client.processRequest(loginRequest);
   }
 
   async secureNote(body: ItemIface): Promise<DataResponse<SecureNoteClass>> {
-    const secureNoteRequest = new SecureNoteRequest(body);
+    const secureNoteRequest = new SecureNoteItemRequestClass(body);
     return await this.client.processRequest(secureNoteRequest);
   }
 
   async card(body: CardItemIface): Promise<DataResponse<CardItemClass>> {
-    const cardRequest = new CardRequest(body);
+    const cardRequest = new CardItemRequestClass(body);
     return await this.client.processRequest(cardRequest);
   }
 
-  async identity(body: IdentityItemIface): Promise<DataResponse<IdentityItemClass>> {
-    const identityRequest = new IdentityRequest(body);
+  async identity(
+    body: IdentityItemIface
+  ): Promise<DataResponse<IdentityItemClass>> {
+    const identityRequest = new IdentityItemRequestClass(body);
     return await this.client.processRequest(identityRequest);
   }
 
-  async folder(body: Folder): Promise<DataResponse<Folder>> {
-    const folderRequest = new FolderRequest(body);
+  async folder(body: FolderItemIface): Promise<DataResponse<FolderItemIface>> {
+    const folderRequest = new FolderItemRequestClass(body);
     return await this.client.processRequest(folderRequest);
   }
 }
