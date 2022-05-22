@@ -98,12 +98,12 @@ export class ListRequestClass implements BasicRequestIface {
 ////////////////////////////////////////////////////////////////////////////////
 // create
 
-abstract class ItemRequestClass implements BasicRequestIface {
+abstract class CreateItemRequestClass implements BasicRequestIface {
   method = 'post';
   path = '/object/item';
 }
 
-export class LoginItemRequestClass extends ItemRequestClass {
+export class CreateLoginRequestClass extends CreateItemRequestClass {
   body: LoginItemClass;
   constructor(body: LoginItemIface) {
     super();
@@ -111,7 +111,7 @@ export class LoginItemRequestClass extends ItemRequestClass {
   }
 }
 
-export class SecureNoteItemRequestClass extends ItemRequestClass {
+export class CreateSecureNoteRequestClass extends CreateItemRequestClass {
   body: SecureNoteClass;
   constructor(body: ItemIface) {
     super();
@@ -119,7 +119,7 @@ export class SecureNoteItemRequestClass extends ItemRequestClass {
   }
 }
 
-export class CardItemRequestClass extends ItemRequestClass {
+export class CreateCardRequestClass extends CreateItemRequestClass {
   body: CardItemClass;
   constructor(body: CardItemIface) {
     super();
@@ -127,7 +127,7 @@ export class CardItemRequestClass extends ItemRequestClass {
   }
 }
 
-export class IdentityItemRequestClass extends ItemRequestClass {
+export class CreateIdentityRequestClass extends CreateItemRequestClass {
   body: IdentityItemClass;
   constructor(body: IdentityItemIface) {
     super();
@@ -135,7 +135,7 @@ export class IdentityItemRequestClass extends ItemRequestClass {
   }
 }
 
-export class FolderRequestClass implements BasicRequestIface {
+export class CreateFolderRequestClass implements BasicRequestIface {
   method = 'post';
   path = '/object/folder';
   body: FolderIface;

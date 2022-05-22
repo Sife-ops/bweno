@@ -154,7 +154,7 @@ interface ItemLoginResponseIface extends ItemLoginIface {
   passwordRevisionDate?: string;
 }
 interface LoginItemResponseIface extends ItemResponseIface {
-  login: ItemLoginIface;
+  login: ItemLoginResponseIface;
 }
 export type LoginItemResponseType = LoginItemResponseIface &
   ItemMetadataIface &
