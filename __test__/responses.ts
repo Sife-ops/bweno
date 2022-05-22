@@ -97,8 +97,8 @@ Deno.test({
 //  {
 //   success: true,
 //   data: {
-//     noColor: false,
 //     object: 'message',
+//     noColor: false,
 //     title: 'Syncing complete.',
 //     message: null,
 //   },

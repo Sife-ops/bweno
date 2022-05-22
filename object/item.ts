@@ -14,6 +14,8 @@ export interface ItemIface {
   favorite?: boolean;
   fields?: ItemFieldIface[];
   reprompt?: number;
+  // revisionDate?: string;
+  // deletedDate?: string;
 }
 
 abstract class ItemClass implements ItemIface {
@@ -39,7 +41,7 @@ abstract class ItemClass implements ItemIface {
 interface ItemLoginIface {
   uris?: {
     match?: string;
-    uri: string;
+    uri: string; // todo: nullable?
   }[];
   username?: string;
   password?: string;
@@ -120,7 +122,7 @@ interface ItemIdentityIface {
 }
 
 export interface IdentityItemIface extends ItemIface {
-  identity?: ItemIdentityIface;
+  identity: ItemIdentityIface;
 }
 
 export class IdentityItemClass extends ItemClass {
@@ -128,6 +130,6 @@ export class IdentityItemClass extends ItemClass {
   identity: ItemIdentityIface;
   constructor(item: IdentityItemIface) {
     super(item);
-    this.identity = item.identity ? item.identity : {};
+    this.identity = item.identity;
   }
 }

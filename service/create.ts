@@ -19,28 +19,28 @@ import {
 export class Create {
   constructor(private client: Client) {}
 
-  async login(body: LoginItemIface) {
-    const loginRequest = new LoginItemRequestClass(body);
+  async login(login: LoginItemIface) {
+    const loginRequest = new LoginItemRequestClass(login);
     return await this.client.processRequest(loginRequest);
   }
 
-  async secureNote(body: ItemIface) {
-    const secureNoteRequest = new SecureNoteItemRequestClass(body);
+  async secureNote(note: ItemIface) {
+    const secureNoteRequest = new SecureNoteItemRequestClass(note);
     return await this.client.processRequest(secureNoteRequest);
   }
 
-  async card(body: CardItemIface) {
-    const cardRequest = new CardItemRequestClass(body);
+  async card(card: CardItemIface) {
+    const cardRequest = new CardItemRequestClass(card);
     return await this.client.processRequest(cardRequest);
   }
 
-  async identity(body: IdentityItemIface) {
-    const identityRequest = new IdentityItemRequestClass(body);
+  async identity(identity: IdentityItemIface) {
+    const identityRequest = new IdentityItemRequestClass(identity);
     return await this.client.processRequest(identityRequest);
   }
 
-  async folder(body: FolderItemIface) {
-    const folderRequest = new FolderItemRequestClass(body);
+  async folder(folder: FolderItemIface) {
+    const folderRequest = new FolderItemRequestClass(folder);
     return await this.client.processRequest(folderRequest);
   }
 
