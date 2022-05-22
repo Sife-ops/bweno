@@ -1,4 +1,7 @@
-import { ObjectIdMetadataIface } from '../metadata.ts';
+import { ObjectIdMetadataIface, ItemMetadataIface } from '../metadata.ts';
+
+////////////////////////////////////////////////////////////////////////////////
+// common
 
 interface ItemFieldIface {
   name?: string;
@@ -16,19 +19,6 @@ export interface ItemIface {
   fields?: ItemFieldIface[];
   reprompt?: number;
 }
-
-export interface ItemResponseIface extends ItemIface {
-  fields?: Array<ItemFieldIface & { linkedId?: string }>;
-  login?: ItemLoginIface & { passwordRevisionDate?: string };
-  card?: ItemCardIface; // todo: metadata
-  identity?: ItemIdentityIface; // todo: metadata
-  revisionDate?: string;
-  deletedDate?: string;
-}
-
-export type ItemResponseType = ItemResponseIface & ObjectIdMetadataIface;
-
-////////////////////////////////////////////////////////////////////////////////
 
 abstract class ItemClass implements ItemIface {
   folderId?: string;
@@ -48,6 +38,7 @@ abstract class ItemClass implements ItemIface {
 }
 
 ////////////////////////////////////////////////////////////////////////////////
+// login
 
 interface ItemLoginIface {
   uris?: {
@@ -73,6 +64,7 @@ export class LoginItemClass extends ItemClass {
 }
 
 ////////////////////////////////////////////////////////////////////////////////
+// note
 
 export class SecureNoteClass extends ItemClass {
   type = 2;
@@ -85,6 +77,7 @@ export class SecureNoteClass extends ItemClass {
 }
 
 ////////////////////////////////////////////////////////////////////////////////
+// card
 
 interface ItemCardIface {
   cardholderName?: string;
@@ -109,6 +102,7 @@ export class CardItemClass extends ItemClass {
 }
 
 ////////////////////////////////////////////////////////////////////////////////
+// identity
 
 interface ItemIdentityIface {
   title?: string;
@@ -143,3 +137,36 @@ export class IdentityItemClass extends ItemClass {
     this.identity = item.identity;
   }
 }
+
+////////////////////////////////////////////////////////////////////////////////
+// response types
+
+// common
+interface ItemFieldResponseIface extends ItemFieldIface {
+  linkedId?: string;
+}
+interface ItemResponseIface extends ItemIface {
+  fields?: ItemFieldResponseIface[];
+}
+
+// login
+interface ItemLoginResponseIface extends ItemLoginIface {
+  passwordRevisionDate?: string;
+}
+interface LoginItemResponseIface extends ItemResponseIface {
+  login: ItemLoginIface;
+}
+export type LoginItemResponseType = LoginItemResponseIface &
+  ItemMetadataIface &
+  ObjectIdMetadataIface;
+
+// list
+interface ItemListResponseIface extends ItemResponseIface {
+  login?: ItemLoginResponseIface;
+  // todo: notes
+  card?: ItemCardIface; // todo: metadata
+  identity?: ItemIdentityIface; // todo: metadata
+}
+export type ItemListResponseType = ItemListResponseIface &
+  ItemMetadataIface &
+  ObjectIdMetadataIface;

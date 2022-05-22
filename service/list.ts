@@ -1,6 +1,6 @@
 import { Client } from '../client.ts';
 import { FolderResponseType } from '../object/folder.ts';
-import { ItemResponseType } from '../object/item.ts';
+import { ItemListResponseType } from '../object/item.ts';
 import { ListRequestClass, ListQueryIface } from '../request.ts';
 import { ListResponseIface } from '../response.ts';
 
@@ -9,7 +9,7 @@ export class ListService {
 
   async items(
     query?: ListQueryIface
-  ): Promise<ListResponseIface<ItemResponseType>> {
+  ): Promise<ListResponseIface<ItemListResponseType>> {
     const listItemsRequest = new ListRequestClass({ object: 'items' }, query);
     return await this.client.processRequest(listItemsRequest);
   }

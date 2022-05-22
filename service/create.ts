@@ -1,25 +1,30 @@
 import { Client } from '../client.ts';
-import { FolderIface } from '../object/folder.ts';
+import { FolderIface, FolderResponseType } from '../object/folder.ts';
 
 import {
   CardItemIface,
   IdentityItemIface,
   ItemIface,
   LoginItemIface,
+  LoginItemResponseType,
 } from '../object/item.ts';
 
 import {
   CardItemRequestClass,
-  FolderItemRequestClass,
+  FolderRequestClass,
   IdentityItemRequestClass,
   LoginItemRequestClass,
   SecureNoteItemRequestClass,
 } from '../request.ts';
 
+import { ObjectResponseIface } from '../response.ts';
+
 export class CreateService {
   constructor(private client: Client) {}
 
-  async login(login: LoginItemIface) {
+  async login(
+    login: LoginItemIface
+  ): Promise<ObjectResponseIface<LoginItemResponseType>> {
     const loginRequest = new LoginItemRequestClass(login);
     return await this.client.processRequest(loginRequest);
   }
@@ -39,8 +44,10 @@ export class CreateService {
     return await this.client.processRequest(identityRequest);
   }
 
-  async folder(folder: FolderIface) {
-    const folderRequest = new FolderItemRequestClass(folder);
+  async folder(
+    folder: FolderIface
+  ): Promise<ObjectResponseIface<FolderResponseType>> {
+    const folderRequest = new FolderRequestClass(folder);
     return await this.client.processRequest(folderRequest);
   }
 

@@ -14,6 +14,7 @@ import {
 } from './object/item.ts';
 
 ////////////////////////////////////////////////////////////////////////////////
+// common
 
 export type QueryParamType = Record<
   string,
@@ -134,7 +135,7 @@ export class IdentityItemRequestClass extends ItemRequestClass {
   }
 }
 
-export class FolderItemRequestClass implements BasicRequestIface {
+export class FolderRequestClass implements BasicRequestIface {
   method = 'post';
   path = '/object/folder';
   body: FolderIface;
