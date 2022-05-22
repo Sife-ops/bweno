@@ -1,19 +1,11 @@
-// todo: attachment
-// todo: org-collection
-
 import { Client } from '../client.ts';
-import { DataResponse } from '../object/response.ts';
 import { FolderItemIface } from '../object/folder.ts';
 
 import {
-  CardItemClass,
   CardItemIface,
-  IdentityItemClass,
   IdentityItemIface,
   ItemIface,
-  LoginItemClass,
   LoginItemIface,
-  SecureNoteClass,
 } from '../object/item.ts';
 
 import {
@@ -27,30 +19,31 @@ import {
 export class Create {
   constructor(private client: Client) {}
 
-  async login(body: LoginItemIface): Promise<DataResponse<LoginItemClass>> {
+  async login(body: LoginItemIface) {
     const loginRequest = new LoginItemRequestClass(body);
     return await this.client.processRequest(loginRequest);
   }
 
-  async secureNote(body: ItemIface): Promise<DataResponse<SecureNoteClass>> {
+  async secureNote(body: ItemIface) {
     const secureNoteRequest = new SecureNoteItemRequestClass(body);
     return await this.client.processRequest(secureNoteRequest);
   }
 
-  async card(body: CardItemIface): Promise<DataResponse<CardItemClass>> {
+  async card(body: CardItemIface) {
     const cardRequest = new CardItemRequestClass(body);
     return await this.client.processRequest(cardRequest);
   }
 
-  async identity(
-    body: IdentityItemIface
-  ): Promise<DataResponse<IdentityItemClass>> {
+  async identity(body: IdentityItemIface) {
     const identityRequest = new IdentityItemRequestClass(body);
     return await this.client.processRequest(identityRequest);
   }
 
-  async folder(body: FolderItemIface): Promise<DataResponse<FolderItemIface>> {
+  async folder(body: FolderItemIface) {
     const folderRequest = new FolderItemRequestClass(body);
     return await this.client.processRequest(folderRequest);
   }
+
+  // todo: attachment
+  // todo: org-collection
 }

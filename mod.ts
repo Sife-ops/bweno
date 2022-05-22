@@ -29,6 +29,7 @@ export class Bweno {
 
   constructor(config?: ClientConfig) {
     this.client = new Client(config);
+
     this.generate = new Generate(this.client).generate;
     this.status = new Status(this.client).status;
     this.create = new Create(this.client);
