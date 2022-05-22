@@ -1,8 +1,15 @@
-interface BasicResponse {
+interface BasicResponseIface {
   success: boolean;
   message?: string;
 }
 
-interface DataResponse<T> extends BasicResponse {
-  data: T;
+interface DataResponseIface<T> extends BasicResponseIface {
+  data?: T;
+}
+
+interface DataListResponseIface<T> extends BasicResponseIface {
+  data?: {
+    object: 'list';
+    data: Array<T>;
+  };
 }
