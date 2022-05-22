@@ -1,13 +1,13 @@
-interface BasicResponseIface {
+export interface BasicResponseIface {
   success: boolean;
   message?: string;
 }
 
-interface DataResponseIface<T> extends BasicResponseIface {
+export interface ObjectResponseIface<T> extends BasicResponseIface {
   data?: T;
 }
 
-interface DataListResponseIface<T> extends BasicResponseIface {
+export interface ListResponseIface<T> extends BasicResponseIface {
   data?: {
     object: 'list';
     data: Array<T>;

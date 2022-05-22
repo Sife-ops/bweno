@@ -15,14 +15,17 @@ import {
 
 ////////////////////////////////////////////////////////////////////////////////
 
-export type QueryParamType = Record<string, string | number | boolean | undefined>;
+export type QueryParamType = Record<
+  string,
+  string | number | boolean | undefined
+>;
 
 export interface ItemIdParamIface extends QueryParamType {
   item: 'folder' | 'item';
   id: string;
 }
 
-export interface BaseRequestIface {
+export interface BasicRequestIface {
   method: string;
   path: string;
   param?: QueryParamType;
@@ -45,7 +48,7 @@ export interface GenerateQueryIface extends QueryParamType {
   includeNumber?: boolean;
 }
 
-export class GenerateRequestClass implements BaseRequestIface {
+export class GenerateRequestClass implements BasicRequestIface {
   method = 'get';
   path = '/generate';
   query?: GenerateQueryIface;
@@ -56,14 +59,46 @@ export class GenerateRequestClass implements BaseRequestIface {
 
 ////////////////////////////////////////////////////////////////////////////////
 
-export class StatusRequestClass implements BaseRequestIface {
+export class StatusRequestClass implements BasicRequestIface {
   method = 'get';
   path = '/status';
 }
 
 ////////////////////////////////////////////////////////////////////////////////
 
-abstract class ItemRequestClass implements BaseRequestIface {
+interface ListParamIface extends QueryParamType {
+  object:
+    | 'items'
+    | 'folders'
+    | 'collections'
+    | 'org-collections'
+    | 'org-members'
+    | 'organizations';
+}
+
+export interface ListQueryIface extends QueryParamType {
+  organizationId?: string;
+  collectionId?: string;
+  folderId?: string;
+  search?: string;
+  url?: string;
+  trash?: boolean;
+}
+
+export class ListRequestClass implements BasicRequestIface {
+  method = 'get';
+  path = '/list/object/:object';
+  param: ListParamIface;
+  query?: ListQueryIface;
+  constructor(param: ListParamIface, query?: ListQueryIface) {
+    this.param = param;
+    this.query = query;
+  }
+}
+
+////////////////////////////////////////////////////////////////////////////////
+
+abstract class ItemRequestClass implements BasicRequestIface {
   method = 'post';
   path = '/object/item';
 }
@@ -100,48 +135,12 @@ export class IdentityItemRequestClass extends ItemRequestClass {
   }
 }
 
-export class FolderItemRequestClass implements BaseRequestIface {
+export class FolderItemRequestClass implements BasicRequestIface {
   method = 'post';
   path = '/object/folder';
-
   body: FolderItemIface;
-
   constructor(body: FolderItemIface) {
     this.body = body;
-  }
-}
-
-////////////////////////////////////////////////////////////////////////////////
-
-type ListObjectParam = {
-  object:
-    | 'items'
-    | 'folders'
-    | 'collections'
-    | 'org-collections'
-    | 'org-members'
-    | 'organizations';
-};
-
-type ListObjectQuery = {
-  organizationId: string;
-  collectionId: string;
-  folderId: string;
-  search: string;
-  url: string;
-  trash: boolean;
-};
-
-export class ListObjectRequest implements BaseRequestIface {
-  method = 'get';
-  path = '/list/object/:object';
-
-  param: ListObjectParam;
-  query: ListObjectQuery;
-
-  constructor(param: ListObjectParam, query: ListObjectQuery) {
-    this.param = param;
-    this.query = query;
   }
 }
 
@@ -161,7 +160,7 @@ type ObjectFolderBody = {
   name: string;
 };
 
-export class ObjectFolderItemRequestClass implements BaseRequestIface {
+export class ObjectFolderItemRequestClass implements BasicRequestIface {
   method = 'post';
   path = '/object/folder';
   body: ObjectFolderBody;
@@ -180,7 +179,7 @@ type ObjectOrgCollectionQuery = {
 
 ////////////////////////////////////////////////////////////////////////////////
 
-export class DeleteRequest implements BaseRequestIface {
+export class DeleteRequest implements BasicRequestIface {
   method = 'delete';
   path = '/object/:item/:id';
   param: ItemIdParamIface;

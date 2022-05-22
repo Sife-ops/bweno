@@ -1,4 +1,4 @@
-import {BaseRequestIface, QueryParamType} from './request.ts';
+import {BasicRequestIface, QueryParamType} from './request.ts';
 
 /**
  * Client configuration.
@@ -86,7 +86,7 @@ export class Client {
     }
   }
 
-  async processRequest(obj: BaseRequestIface) {
+  async processRequest(obj: BasicRequestIface) {
     let path = this.paramReplace(obj.path, obj.param);
     path = path + this.queryToString(obj.query);
 
