@@ -1,6 +1,6 @@
 // todo: separate files
 
-import { FolderItemIface } from './object/folder.ts';
+import { FolderIface } from './object/folder.ts';
 
 import {
   CardItemClass,
@@ -20,11 +20,6 @@ export type QueryParamType = Record<
   string | number | boolean | undefined
 >;
 
-export interface ItemIdParamIface extends QueryParamType {
-  item: 'folder' | 'item';
-  id: string;
-}
-
 export interface BasicRequestIface {
   method: string;
   path: string;
@@ -34,6 +29,7 @@ export interface BasicRequestIface {
 }
 
 ////////////////////////////////////////////////////////////////////////////////
+// generate
 
 export interface GenerateQueryIface extends QueryParamType {
   uppercase?: boolean;
@@ -58,6 +54,7 @@ export class GenerateRequestClass implements BasicRequestIface {
 }
 
 ////////////////////////////////////////////////////////////////////////////////
+// status
 
 export class StatusRequestClass implements BasicRequestIface {
   method = 'get';
@@ -65,6 +62,7 @@ export class StatusRequestClass implements BasicRequestIface {
 }
 
 ////////////////////////////////////////////////////////////////////////////////
+// list
 
 interface ListParamIface extends QueryParamType {
   object:
@@ -97,6 +95,7 @@ export class ListRequestClass implements BasicRequestIface {
 }
 
 ////////////////////////////////////////////////////////////////////////////////
+// create
 
 abstract class ItemRequestClass implements BasicRequestIface {
   method = 'post';
@@ -138,8 +137,8 @@ export class IdentityItemRequestClass extends ItemRequestClass {
 export class FolderItemRequestClass implements BasicRequestIface {
   method = 'post';
   path = '/object/folder';
-  body: FolderItemIface;
-  constructor(body: FolderItemIface) {
+  body: FolderIface;
+  constructor(body: FolderIface) {
     this.body = body;
   }
 }
@@ -156,21 +155,6 @@ type ObjectAttachmentQuery = {
 
 ////////////////////////////////////////////////////////////////////////////////
 
-type ObjectFolderBody = {
-  name: string;
-};
-
-export class ObjectFolderItemRequestClass implements BasicRequestIface {
-  method = 'post';
-  path = '/object/folder';
-  body: ObjectFolderBody;
-  constructor(body: ObjectFolderBody) {
-    this.body = body;
-  }
-}
-
-////////////////////////////////////////////////////////////////////////////////
-
 type ObjectOrgCollectionQuery = {
   organizationId: string;
 };
@@ -178,12 +162,18 @@ type ObjectOrgCollectionQuery = {
 // todo: ObjectOrgCollectionRequest
 
 ////////////////////////////////////////////////////////////////////////////////
+// delete
+
+export interface DeleteParamIface extends QueryParamType {
+  item: 'attachment' | 'item' | 'folder' | 'org-collection';
+  id: string;
+}
 
 export class DeleteRequest implements BasicRequestIface {
   method = 'delete';
   path = '/object/:item/:id';
-  param: ItemIdParamIface;
-  constructor(param: ItemIdParamIface) {
+  param: DeleteParamIface;
+  constructor(param: DeleteParamIface) {
     this.param = param;
   }
 }

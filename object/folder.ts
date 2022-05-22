@@ -1,7 +1,7 @@
 import { ObjectIdMetadataIface } from '../metadata.ts';
 
-export interface FolderItemIface {
+export interface FolderIface {
   name: string;
 }
 
-export type FolderItemResponseType = FolderItemIface & ObjectIdMetadataIface;
+export type FolderResponseType = FolderIface & ObjectIdMetadataIface;

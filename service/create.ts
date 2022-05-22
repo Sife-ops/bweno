@@ -1,5 +1,5 @@
 import { Client } from '../client.ts';
-import { FolderItemIface } from '../object/folder.ts';
+import { FolderIface } from '../object/folder.ts';
 
 import {
   CardItemIface,
@@ -39,7 +39,7 @@ export class CreateService {
     return await this.client.processRequest(identityRequest);
   }
 
-  async folder(folder: FolderItemIface) {
+  async folder(folder: FolderIface) {
     const folderRequest = new FolderItemRequestClass(folder);
     return await this.client.processRequest(folderRequest);
   }

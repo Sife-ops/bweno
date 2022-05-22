@@ -1,8 +1,9 @@
+import { ObjectIdMetadataIface } from '../metadata.ts';
+
 interface ItemFieldIface {
   name?: string;
   value?: string;
   type?: number; // todo: usage? up to 255?
-  // todo: linkedId
 }
 
 export interface ItemIface {
@@ -14,9 +15,20 @@ export interface ItemIface {
   favorite?: boolean;
   fields?: ItemFieldIface[];
   reprompt?: number;
-  // revisionDate?: string;
-  // deletedDate?: string;
 }
+
+export interface ItemResponseIface extends ItemIface {
+  fields?: Array<ItemFieldIface & { linkedId?: string }>;
+  login?: ItemLoginIface & { passwordRevisionDate?: string };
+  card?: ItemCardIface; // todo: metadata
+  identity?: ItemIdentityIface; // todo: metadata
+  revisionDate?: string;
+  deletedDate?: string;
+}
+
+export type ItemResponseType = ItemResponseIface & ObjectIdMetadataIface;
+
+////////////////////////////////////////////////////////////////////////////////
 
 abstract class ItemClass implements ItemIface {
   folderId?: string;
@@ -25,7 +37,6 @@ abstract class ItemClass implements ItemIface {
   favorite?: boolean;
   fields?: ItemFieldIface[];
   reprompt?: number;
-
   constructor(item: ItemIface) {
     this.folderId = item.folderId;
     this.name = item.name;
@@ -46,7 +57,6 @@ interface ItemLoginIface {
   username?: string;
   password?: string;
   totp?: string;
-  // todo: passwordRevisionDate
 }
 
 export interface LoginItemIface extends ItemIface {
