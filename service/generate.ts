@@ -3,7 +3,7 @@ import { GenerateQueryIface, GenerateRequestClass } from '../request.ts';
 
 export type GenerateMethod = (query?: GenerateQueryIface) => Promise<unknown>;
 
-export class Generate {
+export class GenerateService {
   constructor(private client: Client) {}
 
   async generate(query?: GenerateQueryIface) {

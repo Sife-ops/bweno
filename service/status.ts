@@ -3,7 +3,7 @@ import { StatusRequestClass } from '../request.ts';
 
 export type StatusMethod = () => Promise<unknown>;
 
-export class Status {
+export class StatusService {
   constructor(private client: Client) {}
 
   async status() {

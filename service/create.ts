@@ -16,7 +16,7 @@ import {
   SecureNoteItemRequestClass,
 } from '../request.ts';
 
-export class Create {
+export class CreateService {
   constructor(private client: Client) {}
 
   async login(login: LoginItemIface) {

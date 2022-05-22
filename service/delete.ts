@@ -3,7 +3,7 @@ import { ItemIdParamIface, DeleteRequest } from '../request.ts';
 
 export type DeleteMethod = (param: ItemIdParamIface) => Promise<unknown>;
 
-export class Delete {
+export class DeleteService {
   constructor(private client: Client) {}
 
   async delete(param: ItemIdParamIface) {

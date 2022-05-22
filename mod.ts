@@ -1,8 +1,8 @@
 import { Client, ClientConfig } from './client.ts';
-import { Create } from './service/create.ts';
-import { Delete, DeleteMethod } from './service/delete.ts';
-import { Generate, GenerateMethod } from './service/generate.ts';
-import { Status, StatusMethod } from './service/status.ts';
+import { CreateService } from './service/create.ts';
+import { DeleteService, DeleteMethod } from './service/delete.ts';
+import { GenerateService, GenerateMethod } from './service/generate.ts';
+import { StatusService, StatusMethod } from './service/status.ts';
 import { ListService } from './service/list.ts';
 
 export class Bweno {
@@ -26,7 +26,7 @@ export class Bweno {
   /**
    * Create an object.
    */
-  create: Create;
+  create: CreateService;
 
   /**
    * Delete an object.
@@ -36,10 +36,10 @@ export class Bweno {
   constructor(config?: ClientConfig) {
     this.client = new Client(config);
 
-    this.generate = new Generate(this.client).generate;
-    this.status = new Status(this.client).status;
+    this.generate = new GenerateService(this.client).generate;
+    this.status = new StatusService(this.client).status;
     this.list = new ListService(this.client);
-    this.create = new Create(this.client);
-    this.delete = new Delete(this.client).delete;
+    this.create = new CreateService(this.client);
+    this.delete = new DeleteService(this.client).delete;
   }
 }
