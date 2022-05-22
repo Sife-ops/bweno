@@ -1,4 +1,4 @@
-import { BaseResponse } from '../entity/response.ts';
+import { BaseResponse } from '../object/response.ts';
 import { Client } from '../client.ts';
 import { ItemId, DeleteRequest } from '../request.ts';
 

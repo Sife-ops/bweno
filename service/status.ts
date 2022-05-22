@@ -1,6 +1,6 @@
 import { Client } from '../client.ts';
 import { StatusRequest } from '../request.ts';
-import { StatusResponse } from '../entity/response.ts';
+import { StatusResponse } from '../object/response.ts';
 
 export type StatusMethod = () => Promise<StatusResponse>;
 

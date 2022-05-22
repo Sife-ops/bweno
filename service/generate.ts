@@ -1,6 +1,6 @@
 import { Client } from '../client.ts';
 import { GenerateQuery, GenerateRequest } from '../request.ts';
-import { GenerateResponse } from '../entity/response.ts';
+import { GenerateResponse } from '../object/response.ts';
 
 export type GenerateMethod = (
   query?: GenerateQuery

@@ -2,8 +2,8 @@
 // todo: org-collection
 
 import { Client } from '../client.ts';
-import { DataResponse } from '../entity/response.ts';
-import { Folder } from '../entity/folder.ts';
+import { DataResponse } from '../object/response.ts';
+import { Folder } from '../object/folder.ts';
 
 import {
   CardItemClass,
@@ -14,7 +14,7 @@ import {
   LoginItemClass,
   LoginItemIface,
   SecureNoteClass,
-} from '../entity/item.ts';
+} from '../object/item.ts';
 
 import {
   CardRequest,

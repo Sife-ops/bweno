@@ -1,6 +1,6 @@
 // todo: separate files
 
-import { Folder } from './entity/folder.ts';
+import { Folder } from './object/folder.ts';
 
 import {
   CardItemClass,
@@ -11,7 +11,7 @@ import {
   LoginItemClass,
   LoginItemIface,
   SecureNoteClass,
-} from './entity/item.ts';
+} from './object/item.ts';
 
 ////////////////////////////////////////////////////////////////////////////////
 
