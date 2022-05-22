@@ -1,7 +1,9 @@
 import { Client } from '../client.ts';
 import { GenerateQueryIface, GenerateRequestClass } from '../request.ts';
 
-export type GenerateMethod = (query?: GenerateQueryIface) => Promise<unknown>;
+export type GenerateMethodType = (
+  query?: GenerateQueryIface
+) => Promise<unknown>;
 
 export class GenerateService {
   constructor(private client: Client) {}
