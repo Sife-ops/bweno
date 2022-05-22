@@ -6,13 +6,13 @@ import { DataResponse } from '../entity/response.ts';
 import { Folder } from '../entity/folder.ts';
 
 import {
-  CardClass,
-  CardIface,
-  IdentityClass,
-  IdentityIface,
+  CardItemClass,
+  CardItemIface,
+  IdentityItemClass,
+  IdentityItemIface,
   ItemIface,
-  LoginClass,
-  LoginIface,
+  LoginItemClass,
+  LoginItemIface,
   SecureNoteClass,
 } from '../entity/item.ts';
 
@@ -27,7 +27,7 @@ import {
 export class Create {
   constructor(private client: Client) {}
 
-  async login(body: LoginIface): Promise<DataResponse<LoginClass>> {
+  async login(body: LoginItemIface): Promise<DataResponse<LoginItemClass>> {
     const loginRequest = new LoginRequest(body);
     return await this.client.processRequest(loginRequest);
   }
@@ -37,12 +37,12 @@ export class Create {
     return await this.client.processRequest(secureNoteRequest);
   }
 
-  async card(body: CardIface): Promise<DataResponse<CardClass>> {
+  async card(body: CardItemIface): Promise<DataResponse<CardItemClass>> {
     const cardRequest = new CardRequest(body);
     return await this.client.processRequest(cardRequest);
   }
 
-  async identity(body: IdentityIface): Promise<DataResponse<IdentityClass>> {
+  async identity(body: IdentityItemIface): Promise<DataResponse<IdentityItemClass>> {
     const identityRequest = new IdentityRequest(body);
     return await this.client.processRequest(identityRequest);
   }

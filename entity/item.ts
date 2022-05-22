@@ -1,4 +1,4 @@
-interface Field {
+interface ItemFieldIface {
   name?: string;
   value?: string;
   type?: number; // todo: usage? up to 255?
@@ -12,16 +12,16 @@ export interface ItemIface {
   name: string;
   notes?: string;
   favorite?: boolean;
-  fields?: Field[];
+  fields?: ItemFieldIface[];
   reprompt?: number;
 }
 
-abstract class BaseItemClass implements ItemIface {
+abstract class ItemClass implements ItemIface {
   folderId?: string;
   name: string;
   notes?: string;
   favorite?: boolean;
-  fields?: Field[];
+  fields?: ItemFieldIface[];
   reprompt?: number;
 
   constructor(item: ItemIface) {
@@ -36,7 +36,7 @@ abstract class BaseItemClass implements ItemIface {
 
 ////////////////////////////////////////////////////////////////////////////////
 
-interface ItemLogin {
+interface ItemLoginIface {
   uris?: {
     match?: string;
     uri: string;
@@ -47,29 +47,26 @@ interface ItemLogin {
   // todo: passwordRevisionDate
 }
 
-export interface LoginIface extends ItemIface {
-  login?: ItemLogin;
+export interface LoginItemIface extends ItemIface {
+  login: ItemLoginIface;
 }
 
-export class LoginClass extends BaseItemClass {
+export class LoginItemClass extends ItemClass {
   type = 1;
-
-  login: ItemLogin;
-
-  constructor(item: LoginIface) {
+  login: ItemLoginIface;
+  constructor(item: LoginItemIface) {
     super(item);
-    this.login = item.login ? item.login : {};
+    this.login = item.login;
   }
 }
 
 ////////////////////////////////////////////////////////////////////////////////
 
-export class SecureNoteClass extends BaseItemClass {
+export class SecureNoteClass extends ItemClass {
   type = 2;
   secureNote = {
     type: 0, // todo: usage? up to 255?
   };
-
   constructor(item: ItemIface) {
     super(item);
   }
@@ -77,7 +74,7 @@ export class SecureNoteClass extends BaseItemClass {
 
 ////////////////////////////////////////////////////////////////////////////////
 
-interface ItemCard {
+interface ItemCardIface {
   cardholderName?: string;
   brand?: string;
   number?: string;
@@ -86,24 +83,24 @@ interface ItemCard {
   code?: string;
 }
 
-export interface CardIface extends ItemIface {
-  card?: ItemCard;
+export interface CardItemIface extends ItemIface {
+  card: ItemCardIface;
 }
 
-export class CardClass extends BaseItemClass {
+export class CardItemClass extends ItemClass {
   type = 3;
 
-  card: ItemCard;
+  card: ItemCardIface;
 
-  constructor(item: CardIface) {
+  constructor(item: CardItemIface) {
     super(item);
-    this.card = item.card ? item.card : {};
+    this.card = item.card;
   }
 }
 
 ////////////////////////////////////////////////////////////////////////////////
 
-interface ItemIdentity {
+interface ItemIdentityIface {
   title?: string;
   firstName?: string;
   middleName?: string;
@@ -124,16 +121,16 @@ interface ItemIdentity {
   licenseNumber?: string;
 }
 
-export interface IdentityIface extends ItemIface {
-  identity?: ItemIdentity;
+export interface IdentityItemIface extends ItemIface {
+  identity?: ItemIdentityIface;
 }
 
-export class IdentityClass extends BaseItemClass {
+export class IdentityItemClass extends ItemClass {
   type = 4;
 
-  identity: ItemIdentity;
+  identity: ItemIdentityIface;
 
-  constructor(item: IdentityIface) {
+  constructor(item: IdentityItemIface) {
     super(item);
     this.identity = item.identity ? item.identity : {};
   }
