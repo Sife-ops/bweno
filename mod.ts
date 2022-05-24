@@ -1,45 +1,15 @@
-import { Client, ClientConfig } from './client.ts';
-import { CreateService } from './service/create.ts';
-import { DeleteService, DeleteMethodType } from './service/delete.ts';
-import { GenerateService, GenerateMethodType } from './service/generate.ts';
-import { ListService } from './service/list.ts';
-import { StatusService, StatusMethodType } from './service/status.ts';
+export { Bweno } from './bweno.ts';
 
-export class Bweno {
-  private client: Client;
+/*
+ * Object types
+ */
 
-  /**
-   * Generate a password.
-   */
-  generate: GenerateMethodType;
+export type { StatusIface as Status } from './object/status.ts';
 
-  /**
-   * Show status.
-   */
-  status: StatusMethodType;
+export type { ItemIface as Item } from './object/item/item.ts';
+export type { LoginItemIface as Login } from './object/item/login.ts';
+export type { ItemIface as Note } from './object/item/item.ts';
+export type { CardItemIface as Card } from './object/item/card.ts';
+export type { IdentityItemIface as Identity } from './object/item/identity.ts';
 
-  /**
-   * List objects.
-   */
-  list: ListService;
-
-  /**
-   * Create an object.
-   */
-  create: CreateService;
-
-  /**
-   * Delete an object.
-   */
-  delete: DeleteMethodType;
-
-  constructor(config?: ClientConfig) {
-    this.client = new Client(config);
-
-    this.generate = new GenerateService(this.client).generate;
-    this.status = new StatusService(this.client).status;
-    this.list = new ListService(this.client);
-    this.create = new CreateService(this.client);
-    this.delete = new DeleteService(this.client).delete;
-  }
-}
+export type { FolderIface as Folder } from './object/folder.ts';

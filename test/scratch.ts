@@ -7,6 +7,9 @@ Deno.test({
 
     // const r = await b.status();
 
+    // const f: Folder = {
+    //   name: 'asdf'
+    // }
     // const r = await b.create.folder({
     //   name: 'asdf',
     // })
