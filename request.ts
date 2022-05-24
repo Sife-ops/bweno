@@ -166,7 +166,7 @@ type ObjectOrgCollectionQuery = {
 // delete
 
 export interface DeleteParamIface extends QueryParamType {
-  item: 'attachment' | 'item' | 'folder' | 'org-collection';
+  item: string;
   id: string;
 }
 

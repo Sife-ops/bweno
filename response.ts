@@ -4,11 +4,11 @@ export interface BasicResponseIface {
 }
 
 export interface ObjectResponseIface<T> extends BasicResponseIface {
-  data?: T;
+  data: T;
 }
 
 export interface ListResponseIface<T> extends BasicResponseIface {
-  data?: {
+  data: {
     object: 'list';
     data: Array<T>;
   };
