@@ -1,7 +1,7 @@
-export interface ObjectIface {
-  object: string;
+export class ObjectClass {
+  object = '';
 }
 
-export interface ObjectIdIface extends ObjectIface {
-  id: string;
+export class ObjectIdClass extends ObjectClass {
+  id = '';
 }
