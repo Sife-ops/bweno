@@ -25,8 +25,8 @@ Create a login item:
 const result = await bweno.create.login({
   name: 'foo',
   login: {
-    username: 'foo',
-    password: 'bar',
+    username: 'bar',
+    password: 'baz',
   }
 });
 ```
