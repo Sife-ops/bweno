@@ -21,8 +21,11 @@ Create a login item:
 
 ```javascript
 const result = await bweno.create.login({
-  username: 'foo',
-  password: 'bar',
+  name: 'foo',
+  login: {
+    username: 'foo',
+    password: 'bar',
+  }
 });
 ```
 
