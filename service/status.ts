@@ -1,5 +1,5 @@
 import { Client } from '../client.ts';
-import { StatusRequestClass } from '../request.ts';
+import { StatusRequestClass } from '../request/status.ts';
 
 export type StatusMethodType = () => Promise<unknown>;
 

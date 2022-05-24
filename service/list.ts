@@ -1,5 +1,8 @@
 import { Client } from '../client.ts';
 
+import { ItemClass } from '../object/item/item.ts';
+import { FolderClass } from '../object/folder.ts';
+
 import {
   ListParamIface,
   ListQueryIface,
@@ -23,7 +26,7 @@ export class ListService {
    * @param query
    * @returns
    */
-  async items(query?: ListQueryIface) {
+  async items(query?: ListQueryIface): Promise<Array<ItemClass>> {
     return await this.processListRequest({ object: 'items' }, query);
   }
 
@@ -32,7 +35,7 @@ export class ListService {
    * @param query
    * @returns
    */
-  async folders(query?: ListQueryIface) {
+  async folders(query?: ListQueryIface): Promise<Array<FolderClass>> {
     return await this.processListRequest({ object: 'folders' }, query);
   }
 }

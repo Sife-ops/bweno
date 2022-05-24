@@ -1,5 +1,5 @@
 import { Client } from '../client.ts';
-import { DeleteParamIface, DeleteRequest } from '../request.ts';
+import { DeleteParamIface, DeleteRequest } from '../request/delete.ts';
 
 export type DeleteMethodType = (param: DeleteParamIface) => Promise<unknown>;
 

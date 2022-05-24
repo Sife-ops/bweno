@@ -1,1 +1,1 @@
-import './service/__test__/index.ts';
+import './test/scratch.ts'
