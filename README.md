@@ -5,7 +5,7 @@ Think outside the bun :taco:
 Deno client library for Bitwarden CLI's local REST API. Pronounced as Spanish
 'bueno', meaning 'good'.
 
-## Usage examples
+## Usage
 
 Create an instance:
 
@@ -32,4 +32,5 @@ const result = await bweno.create.login({
 ```
 
 ## Todo
-* request query options
+
+* submit to deno.land
