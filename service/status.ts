@@ -1,13 +1,15 @@
 import { Client } from '../client.ts';
+import { StatusIface } from '../object/status.ts';
 import { StatusRequestClass } from '../request/status.ts';
 
-export type StatusMethodType = () => Promise<unknown>;
+export type StatusMethodType = () => Promise<StatusIface>;
 
 export class StatusService {
   constructor(private client: Client) {}
 
-  async status() {
+  async status(): Promise<StatusIface> {
     const statusRequest = new StatusRequestClass();
-    return await this.client.processRequest(statusRequest);
+    const res = await this.client.processRequest(statusRequest);
+    return res.data.template;
   }
 }

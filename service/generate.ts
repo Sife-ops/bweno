@@ -7,13 +7,14 @@ import {
 
 export type GenerateMethodType = (
   query?: GenerateQueryIface
-) => Promise<unknown>;
+) => Promise<string>;
 
 export class GenerateService {
   constructor(private client: Client) {}
 
-  async generate(query?: GenerateQueryIface) {
+  async generate(query?: GenerateQueryIface): Promise<string> {
     const generateRequest = new GenerateRequestClass(query);
-    return await this.client.processRequest(generateRequest);
+    const res = await this.client.processRequest(generateRequest);
+    return res.data.data;
   }
 }

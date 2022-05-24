@@ -1,5 +1,8 @@
 import { RequestIface, QueryParamType } from './request.ts';
 
+/**
+ * Generate options.
+ */
 export interface GenerateQueryIface extends QueryParamType {
   uppercase?: boolean;
   lowercase?: boolean;

@@ -3,5 +3,6 @@ export class ObjectClass {
 }
 
 export class ObjectIdClass extends ObjectClass {
+  // todo: "No Folder" has null id
   id = '';
 }
