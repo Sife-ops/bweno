@@ -30,7 +30,7 @@ export class ItemLoginClass implements ItemLoginIface {
 
 ////////////////////////////////////////////////////////////////////////////////
 
-interface LoginItemIface extends ItemIface {
+export interface LoginItemIface extends ItemIface {
   login: ItemLoginIface;
 }
 

@@ -9,7 +9,7 @@ export interface ItemCardIface {
   code?: string;
 }
 
-interface CardItemIface extends ItemIface {
+export interface CardItemIface extends ItemIface {
   card: ItemCardIface;
 }
 

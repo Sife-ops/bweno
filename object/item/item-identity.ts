@@ -21,7 +21,7 @@ export interface ItemIdentityIface {
   licenseNumber?: string;
 }
 
-interface IdentityItemIface extends ItemIface {
+export interface IdentityItemIface extends ItemIface {
   identity: ItemIdentityIface;
 }
 

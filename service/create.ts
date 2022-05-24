@@ -1,12 +1,15 @@
 import { Client } from '../client.ts';
-import { FolderIface, FolderClass } from '../object/folder.ts';
+
+import { CardItemClass, CardItemIface } from '../object/item/item-card.ts';
+import { FolderClass, FolderIface } from '../object/folder.ts';
+import { ItemIface } from '../object/item/item.ts';
+import { LoginItemClass, LoginItemIface } from '../object/item/item-login.ts';
+import { NoteItemClass } from '../object/item/item-note.ts';
 
 import {
-  CardItemIface,
+  IdentityItemClass,
   IdentityItemIface,
-  ItemIface,
-  LoginItemIface,
-} from '../object/item.ts';
+} from '../object/item/item-identity.ts';
 
 import {
   BasicRequestIface,
@@ -25,22 +28,22 @@ export class CreateService {
     return res.data;
   }
 
-  async login(login: LoginItemIface) {
+  async login(login: LoginItemIface): Promise<LoginItemClass> {
     const loginRequest = new CreateLoginRequestClass(login);
     return await this.processRequest(loginRequest);
   }
 
-  async secureNote(note: ItemIface) {
+  async secureNote(note: ItemIface): Promise<NoteItemClass> {
     const secureNoteRequest = new CreateSecureNoteRequestClass(note);
     return await this.processRequest(secureNoteRequest);
   }
 
-  async card(card: CardItemIface) {
+  async card(card: CardItemIface): Promise<CardItemClass> {
     const cardRequest = new CreateCardRequestClass(card);
     return await this.processRequest(cardRequest);
   }
 
-  async identity(identity: IdentityItemIface) {
+  async identity(identity: IdentityItemIface): Promise<IdentityItemClass> {
     const identityRequest = new CreateIdentityRequestClass(identity);
     return await this.processRequest(identityRequest);
   }
