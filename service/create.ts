@@ -1,15 +1,15 @@
 import { Client } from '../client.ts';
 
-import { CardItemClass, CardItemIface } from '../object/item/item-card.ts';
+import { CardItemClass, CardItemIface } from '../object/item/card.ts';
 import { FolderClass, FolderIface } from '../object/folder.ts';
 import { ItemIface } from '../object/item/item.ts';
-import { LoginItemClass, LoginItemIface } from '../object/item/item-login.ts';
-import { NoteItemClass } from '../object/item/item-note.ts';
+import { LoginItemClass, LoginItemIface } from '../object/item/login.ts';
+import { NoteItemClass } from '../object/item/note.ts';
 
 import {
   IdentityItemClass,
   IdentityItemIface,
-} from '../object/item/item-identity.ts';
+} from '../object/item/identity.ts';
 
 import { RequestIface } from '../request/request.ts';
 import {

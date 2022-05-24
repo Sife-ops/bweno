@@ -1,6 +1,6 @@
-import { ItemCardIface } from './item-card.ts';
-import { ItemIdentityIface } from './item-identity.ts';
-import { ItemLoginClass } from './item-login.ts';
+import { ItemCardIface } from './card.ts';
+import { ItemIdentityIface } from './identity.ts';
+import { ItemLoginClass } from './login.ts';
 import { ObjectIdClass } from '../object.ts';
 
 interface ItemFieldIface {
