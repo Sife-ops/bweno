@@ -1,5 +1,9 @@
 import { Client } from '../client.ts';
-import { GenerateQueryIface, GenerateRequestClass } from '../request.ts';
+
+import {
+  GenerateRequestClass,
+  GenerateQueryIface,
+} from '../request/generate.ts';
 
 export type GenerateMethodType = (
   query?: GenerateQueryIface

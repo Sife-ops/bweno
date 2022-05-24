@@ -4,13 +4,16 @@ import {
   ListParamIface,
   ListQueryIface,
   ListRequestClass,
-} from '../request.ts';
+} from '../request/list.ts';
 
 export class ListService {
   constructor(private client: Client) {}
 
-  private async processListRequest(p: ListParamIface, q?: ListQueryIface) {
-    const req = new ListRequestClass(p, q);
+  private async processListRequest(
+    param: ListParamIface,
+    query?: ListQueryIface
+  ) {
+    const req = new ListRequestClass(param, query);
     const res = await this.client.processRequest(req);
     return res.data.data;
   }

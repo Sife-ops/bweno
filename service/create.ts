@@ -11,16 +11,16 @@ import {
   IdentityItemIface,
 } from '../object/item/item-identity.ts';
 
+import { RequestIface } from '../request/request.ts';
 import {
-  BasicRequestIface,
   CreateFolderRequestClass,
   CreateItemRequestClass,
-} from '../request.ts';
+} from '../request/create.ts';
 
 export class CreateService {
   constructor(private client: Client) {}
 
-  private async processObject(req: BasicRequestIface) {
+  private async processObject(req: RequestIface) {
     const res = await this.client.processRequest(req);
     return res.data;
   }
