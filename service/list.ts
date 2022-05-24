@@ -1,19 +1,35 @@
 import { Client } from '../client.ts';
-import { ListRequestClass, ListQueryIface } from '../request.ts';
+
+import {
+  ListParamIface,
+  ListQueryIface,
+  ListRequestClass,
+} from '../request.ts';
 
 export class ListService {
   constructor(private client: Client) {}
 
-  async items(query?: ListQueryIface) {
-    const listItemsRequest = new ListRequestClass({ object: 'items' }, query);
-    return await this.client.processRequest(listItemsRequest);
+  private async processListRequest(p: ListParamIface, q?: ListQueryIface) {
+    const req = new ListRequestClass(p, q);
+    const res = await this.client.processRequest(req);
+    return res.data.data;
   }
 
+  /**
+   * List items.
+   * @param query
+   * @returns
+   */
+  async items(query?: ListQueryIface) {
+    return await this.processListRequest({ object: 'items' }, query);
+  }
+
+  /**
+   * List folders.
+   * @param query
+   * @returns
+   */
   async folders(query?: ListQueryIface) {
-    const listFoldersRequest = new ListRequestClass(
-      { object: 'folders' },
-      query
-    );
-    return await this.client.processRequest(listFoldersRequest);
+    return await this.processListRequest({ object: 'folders' }, query);
   }
 }

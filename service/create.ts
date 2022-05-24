@@ -13,44 +13,74 @@ import {
 
 import {
   BasicRequestIface,
-  CreateCardRequestClass,
   CreateFolderRequestClass,
-  CreateIdentityRequestClass,
-  CreateLoginRequestClass,
-  CreateSecureNoteRequestClass,
+  CreateItemRequestClass,
 } from '../request.ts';
 
 export class CreateService {
   constructor(private client: Client) {}
 
-  private async processRequest(o: BasicRequestIface) {
-    const res = await this.client.processRequest(o);
+  private async processObject(req: BasicRequestIface) {
+    const res = await this.client.processRequest(req);
     return res.data;
   }
 
+  /*
+   * Item
+   */
+  private async processItem(o: unknown) {
+    const req = new CreateItemRequestClass(o);
+    return await this.processObject(req);
+  }
+
+  /**
+   * Login item.
+   * @param login
+   * @returns
+   */
   async login(login: LoginItemIface): Promise<LoginItemClass> {
-    const loginRequest = new CreateLoginRequestClass(login);
-    return await this.processRequest(loginRequest);
+    return await this.processItem(new LoginItemClass(login));
   }
 
+  /**
+   * Secure note item.
+   * @param note
+   * @returns
+   */
   async secureNote(note: ItemIface): Promise<NoteItemClass> {
-    const secureNoteRequest = new CreateSecureNoteRequestClass(note);
-    return await this.processRequest(secureNoteRequest);
+    return await this.processItem(new NoteItemClass(note));
   }
 
+  /**
+   * Card item.
+   * @param card
+   * @returns
+   */
   async card(card: CardItemIface): Promise<CardItemClass> {
-    const cardRequest = new CreateCardRequestClass(card);
-    return await this.processRequest(cardRequest);
+    return await this.processItem(new CardItemClass(card));
   }
 
+  /**
+   * Identity item.
+   * @param identity
+   * @returns
+   */
   async identity(identity: IdentityItemIface): Promise<IdentityItemClass> {
-    const identityRequest = new CreateIdentityRequestClass(identity);
-    return await this.processRequest(identityRequest);
+    return await this.processItem(new IdentityItemClass(identity));
   }
 
+  /*
+   * Folder
+   */
+
+  /**
+   * Folder object.
+   * @param folder
+   * @returns
+   */
   async folder(folder: FolderIface): Promise<FolderClass> {
-    const folderRequest = new CreateFolderRequestClass(folder);
-    return await this.processRequest(folderRequest);
+    const req = new CreateFolderRequestClass(folder);
+    return await this.processObject(req);
   }
 
   // todo: attachment

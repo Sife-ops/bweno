@@ -1,18 +1,5 @@
 // todo: separate files
 
-import { FolderIface } from './object/folder.ts';
-
-import {
-  CardItemClass,
-  CardItemIface,
-  IdentityItemClass,
-  IdentityItemIface,
-  ItemIface,
-  LoginItemClass,
-  LoginItemIface,
-  SecureNoteClass,
-} from './object/item.ts';
-
 ////////////////////////////////////////////////////////////////////////////////
 // common
 
@@ -24,9 +11,9 @@ export type QueryParamType = Record<
 export interface BasicRequestIface {
   method: string;
   path: string;
-  param?: QueryParamType;
+  param?: QueryParamType; // todo: use unknown?
   query?: QueryParamType;
-  body?: ItemIface;
+  body?: unknown;
 }
 
 ////////////////////////////////////////////////////////////////////////////////
@@ -65,7 +52,7 @@ export class StatusRequestClass implements BasicRequestIface {
 ////////////////////////////////////////////////////////////////////////////////
 // list
 
-interface ListParamIface extends QueryParamType {
+export interface ListParamIface extends QueryParamType {
   object:
     | 'items'
     | 'folders'
@@ -98,48 +85,20 @@ export class ListRequestClass implements BasicRequestIface {
 ////////////////////////////////////////////////////////////////////////////////
 // create
 
-abstract class CreateItemRequestClass implements BasicRequestIface {
+export class CreateItemRequestClass implements BasicRequestIface {
   method = 'post';
   path = '/object/item';
-}
-
-export class CreateLoginRequestClass extends CreateItemRequestClass {
-  body: LoginItemClass;
-  constructor(body: LoginItemIface) {
-    super();
-    this.body = new LoginItemClass(body);
-  }
-}
-
-export class CreateSecureNoteRequestClass extends CreateItemRequestClass {
-  body: SecureNoteClass;
-  constructor(body: ItemIface) {
-    super();
-    this.body = new SecureNoteClass(body);
-  }
-}
-
-export class CreateCardRequestClass extends CreateItemRequestClass {
-  body: CardItemClass;
-  constructor(body: CardItemIface) {
-    super();
-    this.body = new CardItemClass(body);
-  }
-}
-
-export class CreateIdentityRequestClass extends CreateItemRequestClass {
-  body: IdentityItemClass;
-  constructor(body: IdentityItemIface) {
-    super();
-    this.body = new IdentityItemClass(body);
+  body: unknown;
+  constructor(body: unknown) {
+    this.body = body;
   }
 }
 
 export class CreateFolderRequestClass implements BasicRequestIface {
   method = 'post';
   path = '/object/folder';
-  body: FolderIface;
-  constructor(body: FolderIface) {
+  body: unknown;
+  constructor(body: unknown) {
     this.body = body;
   }
 }
