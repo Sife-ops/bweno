@@ -10,6 +10,9 @@ export interface ListParamIface extends QueryParamType {
     | 'organizations';
 }
 
+/**
+ * List options.
+ */
 export interface ListQueryIface extends QueryParamType {
   organizationId?: string;
   collectionId?: string;
