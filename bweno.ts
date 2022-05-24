@@ -4,6 +4,7 @@ import { DeleteService, DeleteMethodType } from './service/delete.ts';
 import { GenerateService, GenerateMethodType } from './service/generate.ts';
 import { ListService } from './service/list.ts';
 import { StatusService, StatusMethodType } from './service/status.ts';
+import { SyncService, SyncMethodType } from './service/sync.ts';
 
 export class Bweno {
   private client: Client;
@@ -24,6 +25,11 @@ export class Bweno {
   list: ListService;
 
   /**
+   * Sync vault.
+   */
+  sync: SyncMethodType;
+
+  /**
    * Create an object.
    */
   create: CreateService;
@@ -39,6 +45,7 @@ export class Bweno {
     this.generate = new GenerateService(this.client).generate;
     this.status = new StatusService(this.client).status;
     this.list = new ListService(this.client);
+    this.sync = new SyncService(this.client).sync;
     this.create = new CreateService(this.client);
     this.delete = new DeleteService(this.client).delete;
   }

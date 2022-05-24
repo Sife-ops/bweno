@@ -25,9 +25,11 @@ Deno.test({
 
     // const r = await b.list.folders();
 
-    const r = await b.list.items({
-      trash: true,
-    });
+    // const r = await b.list.items({
+    //   trash: true,
+    // });
+
+    const r = await b.sync();
 
     console.log(r);
   },
