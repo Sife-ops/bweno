@@ -34,7 +34,6 @@ export class Client {
     return await this.request(e, { method: 'GET' });
   }
 
-  // todo: specific type
   private async post(e: string, b?: unknown) {
     return await this.request(e, {
       method: 'POST',
@@ -43,7 +42,6 @@ export class Client {
     });
   }
 
-  // todo: specific type
   private async put(e: string, b?: unknown) {
     return await this.request(e, {
       method: 'PUT',
@@ -98,8 +96,7 @@ export class Client {
     ) {
       return await this[obj.method](path, obj.body);
     } else {
-      // todo: better error
-      throw new Error('something');
+      throw new Error('improper HTTP method');
     }
   }
 }

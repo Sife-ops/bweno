@@ -5,4 +5,3 @@ export interface StatusIface {
   userId: string;
   status: string;
 }
-
