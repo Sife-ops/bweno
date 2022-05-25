@@ -4,4 +4,3 @@ export class LockRequestClass implements RequestIface {
   method = 'post';
   path = '/lock';
 }
-
