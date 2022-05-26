@@ -8,7 +8,7 @@ import { ObjectIdClass } from '../object/object.ts';
 export type EditMethodType = <T extends ObjectIdClass>(
   object: T,
   options?: EditOptionsIface
-) => Promise<unknown>;
+) => Promise<T>;
 
 export class EditService {
   constructor(private client: Client) {}
@@ -16,10 +16,10 @@ export class EditService {
   async edit<T extends ObjectIdClass>(
     object: T,
     options?: EditOptionsIface
-  ): Promise<unknown> {
+  ): Promise<T> {
     const req = new EditRequestClass(object, options);
     const res = await this.client.processRequest(req);
 
-    return res.success;
+    return res.data;
   }
 }
