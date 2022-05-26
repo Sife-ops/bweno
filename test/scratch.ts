@@ -1,8 +1,39 @@
-import { Bweno } from '../mod.ts';
+import {
+  //
+  Bweno,
+  //
+  VaultObject,
+  Folder,
+  //
+  Item,
+  Card,
+  Login,
+} from '../mod.ts';
+
+const f = (o: VaultObject): void => {
+  //
+};
+
+const ff = (o: Item): void => {
+  //
+};
 
 Deno.test({
   name: 'scratch',
   fn: async () => {
+    const folder = new Folder({ name: 'a' });
+
+    const card = new Card({ name: 'a', card: { number: '123' } });
+    const login = new Login({ name: 'a', login: { password: 'a' } });
+
+    f(folder);
+    f(card);
+    f(login);
+
+    // ff(folder);
+    ff(card);
+    ff(login);
+
     const b = new Bweno();
 
     // const r = await b.status();

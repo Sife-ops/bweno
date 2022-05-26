@@ -6,10 +6,12 @@ export { Bweno } from './bweno.ts';
 
 export type { StatusIface as Status } from './object/status.ts';
 
-export type { ItemIface as Item } from './object/item/item.ts';
-export type { LoginItemIface as Login } from './object/item/login.ts';
-export type { ItemIface as Note } from './object/item/item.ts';
-export type { CardItemIface as Card } from './object/item/card.ts';
-export type { IdentityItemIface as Identity } from './object/item/identity.ts';
+export { ObjectIdClass as VaultObject } from './object/object.ts';
 
-export type { FolderIface as Folder } from './object/folder.ts';
+export { ItemClass as Item } from './object/item/item.ts';
+export { LoginItemClass as Login } from './object/item/login.ts';
+export { ItemClass as Note } from './object/item/item.ts';
+export { CardItemClass as Card } from './object/item/card.ts';
+export { IdentityItemClass as Identity } from './object/item/identity.ts';
+
+export { FolderClass as Folder } from './object/folder.ts';

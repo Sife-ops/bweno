@@ -1,14 +1,21 @@
 import { Client } from '../client.ts';
-import { DeleteParamIface, DeleteRequest } from '../request/delete.ts';
+import { DeleteRequest } from '../request/delete.ts';
+import { ObjectIdClass } from '../object/object.ts';
 
-export type DeleteMethodType = (param: DeleteParamIface) => Promise<boolean>;
+export type DeleteMethodType = (object: ObjectIdClass) => Promise<boolean>;
 
 export class DeleteService {
   constructor(private client: Client) {}
 
-  async delete(param: DeleteParamIface): Promise<boolean> {
-    const deleteRequest = new DeleteRequest(param);
-    const res = await this.client.processRequest(deleteRequest);
+  async delete(object: ObjectIdClass): Promise<boolean> {
+    const param = {
+      object: object.object,
+      id: object.id,
+    };
+
+    const req = new DeleteRequest(param);
+    const res = await this.client.processRequest(req);
+
     return res.success;
   }
 }
