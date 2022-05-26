@@ -1,5 +1,4 @@
-import { RequestIface, QueryParamType, ObjectIdParamType } from './request.ts';
-import { ObjectIdClass } from '../object/object.ts';
+import { ObjectIdParamType, QueryParamType, RequestIface } from './request.ts';
 
 /**
  * Get options.
@@ -17,13 +16,6 @@ export class GetRequestClass implements RequestIface {
   param: QueryParamType;
 
   constructor(param: ObjectIdParamType, query?: QueryParamType) {
-    // constructor(object: ObjectIdClass, query?: QueryParamType) {
-
-    // this.param = {
-    //   object: object.object,
-    //   id: object.id,
-    // };
-
     this.param = param;
     this.query = query;
   }

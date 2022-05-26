@@ -1,9 +1,10 @@
 // todo: end-to-end test
+// todo: return undefined if not found?
 
 import { Client } from '../client.ts';
 import { GetOptionsIface, GetRequestClass } from '../request/get.ts';
-import { ObjectIdParamType } from '../request/request.ts';
 import { ObjectIdClass } from '../object/object.ts';
+import { ObjectIdParamType } from '../request/request.ts';
 
 export type GetMethodType = <T extends ObjectIdClass>(
   param: ObjectIdParamType,

@@ -1,6 +1,7 @@
 import {
   //
   Bweno,
+  Folder,
 } from '../mod.ts';
 
 Deno.test({
@@ -10,7 +11,12 @@ Deno.test({
 
     const r = await b.list.folders();
     const rr = await b.list.items();
-    // const rrr = await b.get()
+
+    try {
+      const rrr = await b.get<Folder>({ id: 'a', object: 'a' });
+    } catch {
+      // not found
+    }
 
     // if(r){
     //   const e = await b.edit({ })
