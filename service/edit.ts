@@ -1,4 +1,3 @@
-// todo: response type
 // todo: end-to-end test
 
 import { Client } from '../client.ts';
