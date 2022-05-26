@@ -2,7 +2,7 @@
 
 Think outside the bun :taco:
 
-Deno client library for Bitwarden CLI's local REST API. Pronounced as Spanish
+Bweno is a client library for Bitwarden CLI's local REST API. Pronounced as Spanish
 'bueno', meaning 'good'.
 
 ## Usage
@@ -33,4 +33,5 @@ const result = await bweno.create.login({
 
 ## Todo
 
-* submit to deno.land
+* unit tests
+* support Bitwarden sends?
