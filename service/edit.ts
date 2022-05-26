@@ -6,7 +6,8 @@ import { EditRequestClass, EditOptionsIface } from '../request/edit.ts';
 import { ObjectIdClass } from '../object/object.ts';
 
 export type EditMethodType = <T extends ObjectIdClass>(
-  object: T
+  object: T,
+  options?: EditOptionsIface
 ) => Promise<unknown>;
 
 export class EditService {
