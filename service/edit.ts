@@ -5,13 +5,15 @@ import { Client } from '../client.ts';
 import { EditRequestClass, EditOptionsIface } from '../request/edit.ts';
 import { ObjectIdClass } from '../object/object.ts';
 
-export type EditMethodType = (object: ObjectIdClass) => Promise<unknown>;
+export type EditMethodType = <T extends ObjectIdClass>(
+  object: T
+) => Promise<unknown>;
 
 export class EditService {
   constructor(private client: Client) {}
 
-  async edit(
-    object: ObjectIdClass,
+  async edit<T extends ObjectIdClass>(
+    object: T,
     options?: EditOptionsIface
   ): Promise<unknown> {
     const req = new EditRequestClass(object, options);

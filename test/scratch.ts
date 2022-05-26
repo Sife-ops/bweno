@@ -8,6 +8,13 @@ Deno.test({
   fn: async () => {
     const b = new Bweno();
 
+    const r = await b.list.folders();
+    const rr = await b.list.items();
+
+    // if(r){
+    //   const e = await b.edit({ })
+    // }
+
     // const r = await b.status();
 
     // const f: Folder = {
@@ -32,14 +39,14 @@ Deno.test({
 
     // const r = await b.sync();
 
-    const r = await b.list.folders();
-    const f = r.find((e) => e.name === 'Email');
+    // const r = await b.list.folders();
+    // const f = r.find((e) => e.name === 'Email');
 
-    if (f) {
-      const i = await b.list.items({
-        folderId: f.id,
-      });
-      console.log(i);
-    }
+    // if (f) {
+    //   const i = await b.list.items({
+    //     folderId: f.id,
+    //   });
+    //   console.log(i);
+    // }
   },
 });
