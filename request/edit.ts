@@ -18,4 +18,3 @@ export class EditRequestClass implements RequestIface {
     this.body = body;
   }
 }
-
