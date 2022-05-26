@@ -6,6 +6,7 @@ import { ListService } from './service/list.ts';
 import { LockService, LockMethodType } from './service/lock.ts';
 import { StatusService, StatusMethodType } from './service/status.ts';
 import { SyncService, SyncMethodType } from './service/sync.ts';
+import { UnlockService, UnlockMethodType } from './service/unlock.ts';
 
 export class Bweno {
   private client: Client;
@@ -36,6 +37,11 @@ export class Bweno {
   lock: LockMethodType;
 
   /**
+   * Unlock vault.
+   */
+  unlock: UnlockMethodType;
+
+  /**
    * Create an object.
    */
   create: CreateService;
@@ -53,6 +59,7 @@ export class Bweno {
     this.list = new ListService(this.client);
     this.sync = new SyncService(this.client).sync;
     this.lock = new LockService(this.client).lock;
+    this.unlock = new UnlockService(this.client).unlock;
     this.create = new CreateService(this.client);
     this.delete = new DeleteService(this.client).delete;
   }
