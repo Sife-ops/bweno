@@ -7,8 +7,8 @@ export type SyncMethodType = (query?: SyncQueryIface) => Promise<SyncIface>;
 export class SyncService {
   constructor(private client: Client) {}
 
-  async sync(query?: SyncQueryIface): Promise<SyncIface> {
-    const req = new SyncRequestClass(query);
+  async sync(options?: SyncQueryIface): Promise<SyncIface> {
+    const req = new SyncRequestClass(options);
     const res = await this.client.processRequest(req);
     return res.data;
   }

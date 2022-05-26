@@ -12,9 +12,9 @@ export type GenerateMethodType = (
 export class GenerateService {
   constructor(private client: Client) {}
 
-  async generate(query?: GenerateQueryIface): Promise<string> {
-    const generateRequest = new GenerateRequestClass(query);
-    const res = await this.client.processRequest(generateRequest);
+  async generate(options?: GenerateQueryIface): Promise<string> {
+    const req = new GenerateRequestClass(options);
+    const res = await this.client.processRequest(req);
     return res.data.data;
   }
 }

@@ -18,19 +18,19 @@ export class ListService {
 
   /**
    * List items.
-   * @param query
+   * @param options
    * @returns
    */
-  async items(query?: ListQueryIface): Promise<ItemClass[]> {
-    return await this.processListRequest({ object: 'items' }, query);
+  async items(options?: ListQueryIface): Promise<ItemClass[]> {
+    return await this.processListRequest({ object: 'items' }, options);
   }
 
   /**
    * List folders.
-   * @param query
+   * @param options
    * @returns
    */
-  async folders(query?: ListQueryIface): Promise<FolderClass[]> {
-    return await this.processListRequest({ object: 'folders' }, query);
+  async folders(options?: ListQueryIface): Promise<FolderClass[]> {
+    return await this.processListRequest({ object: 'folders' }, options);
   }
 }

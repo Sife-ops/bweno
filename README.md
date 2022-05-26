@@ -35,3 +35,5 @@ const result = await bweno.create.login({
 
 * unit tests
 * support Bitwarden sends?
+* attachments
+* organizations

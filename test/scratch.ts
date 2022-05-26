@@ -1,39 +1,11 @@
 import {
   //
   Bweno,
-  //
-  VaultObject,
-  Folder,
-  //
-  Item,
-  Card,
-  Login,
 } from '../mod.ts';
-
-const f = (o: VaultObject): void => {
-  //
-};
-
-const ff = (o: Item): void => {
-  //
-};
 
 Deno.test({
   name: 'scratch',
   fn: async () => {
-    const folder = new Folder({ name: 'a' });
-
-    const card = new Card({ name: 'a', card: { number: '123' } });
-    const login = new Login({ name: 'a', login: { password: 'a' } });
-
-    f(folder);
-    f(card);
-    f(login);
-
-    // ff(folder);
-    ff(card);
-    ff(login);
-
     const b = new Bweno();
 
     // const r = await b.status();
@@ -54,14 +26,20 @@ Deno.test({
 
     // const r = await b.status();
 
-    // const r = await b.list.folders();
-
     // const r = await b.list.items({
     //   trash: true,
     // });
 
-    const r = await b.sync();
+    // const r = await b.sync();
 
-    console.log(r);
+    const r = await b.list.folders();
+    const f = r.find((e) => e.name === 'Email');
+
+    if (f) {
+      const i = await b.list.items({
+        folderId: f.id,
+      });
+      console.log(i);
+    }
   },
 });
