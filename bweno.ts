@@ -3,6 +3,7 @@ import { CreateService } from './service/create.ts';
 import { DeleteService, DeleteMethodType } from './service/delete.ts';
 import { EditService, EditMethodType } from './service/edit.ts';
 import { GenerateService, GenerateMethodType } from './service/generate.ts';
+import { GetService, GetMethodType } from './service/get.ts';
 import { ListService } from './service/list.ts';
 import { LockService, LockMethodType } from './service/lock.ts';
 import { RestoreService, RestoreMethodType } from './service/restore.ts';
@@ -59,6 +60,11 @@ export class Bweno {
   edit: EditMethodType;
 
   /**
+   * Get object
+   */
+  get: GetMethodType;
+
+  /**
    * Delete object.
    */
   delete: DeleteMethodType;
@@ -75,6 +81,7 @@ export class Bweno {
     this.restore = new RestoreService(this.client).restore;
     this.create = new CreateService(this.client);
     this.edit = new EditService(this.client).edit;
+    this.get = new GetService(this.client).get;
     this.delete = new DeleteService(this.client).delete;
   }
 }
