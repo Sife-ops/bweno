@@ -1,1 +1,5 @@
-import './test/scratch.ts'
+/**
+ * Utilities
+ */
+
+import './test/00-utility.ts'
