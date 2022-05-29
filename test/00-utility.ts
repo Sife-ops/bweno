@@ -1,15 +1,12 @@
-import { Bweno } from '../bweno.ts';
-import { assert } from '../test-deps.ts';
+import { assert, bweno } from '../test-deps.ts';
 
 // todo: lock
 // todo: unlock
 
-const b = new Bweno();
-
 Deno.test({
   name: 'generate',
   fn: async () => {
-    const r = await b.generate();
+    const r = await bweno.generate();
     console.log(r);
     assert(r !== '');
     // todo: options
@@ -19,7 +16,7 @@ Deno.test({
 Deno.test({
   name: 'status',
   fn: async () => {
-    const r = await b.status();
+    const r = await bweno.status();
     console.log(r);
     assert(r);
   },
@@ -30,7 +27,7 @@ Deno.test({
   ignore: true,
   name: 'sync',
   fn: async () => {
-    const r = await b.sync();
+    const r = await bweno.sync();
     console.log(r);
     assert(r);
     // todo: options
