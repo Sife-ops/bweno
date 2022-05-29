@@ -1,8 +1,8 @@
-export class ObjectClass {
+export abstract class ObjectClass {
   object = '';
 }
 
-export class ObjectIdClass extends ObjectClass {
+export abstract class ObjectIdClass extends ObjectClass {
   // todo: "No Folder" has null id
   id = '';
 }
