@@ -5,7 +5,7 @@ export class DeleteRequest implements RequestIface {
   path = '/object/:item/:id';
   param: QueryParamType;
 
-  constructor(param: QueryParamType) {
+  constructor(param: { item: string; id: string }) {
     this.param = param;
   }
 }

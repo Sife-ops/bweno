@@ -1,4 +1,4 @@
-import { assert, bweno } from '../test-deps.ts';
+import { assert, bweno } from '../../test-deps.ts';
 
 // todo: lock
 // todo: unlock

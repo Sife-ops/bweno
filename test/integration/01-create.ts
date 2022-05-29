@@ -1,4 +1,4 @@
-import { bweno } from '../test-deps.ts';
+import { bweno } from '../../test-deps.ts';
 import { testObject } from './input.ts';
 
 Deno.test({
@@ -20,8 +20,7 @@ Deno.test({
 Deno.test({
   name: 'note',
   fn: async () => {
-    // todo: remove reference to 'secureNote'
-    const r = await bweno.create.secureNote(testObject.note);
+    const r = await bweno.create.note(testObject.note);
     console.log(r);
   },
 });
@@ -29,7 +28,6 @@ Deno.test({
 Deno.test({
   name: 'card',
   fn: async () => {
-    // todo: remove reference to 'secureNote'
     const r = await bweno.create.card(testObject.card);
     console.log(r);
   },

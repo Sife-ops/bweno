@@ -47,7 +47,7 @@ export class CreateService {
    * @param note
    * @returns
    */
-  async secureNote(note: ItemIface): Promise<NoteItemClass> {
+  async note(note: ItemIface): Promise<NoteItemClass> {
     return await this.processItem(new NoteItemClass(note));
   }
 

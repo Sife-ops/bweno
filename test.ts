@@ -1,17 +1,11 @@
 /**
- * Utilities
+ * Unit
  */
 
-import './test/00-utility.ts';
+import './test/unit/index.ts';
 
 /**
- * Create
+ * Integration
  */
 
-import './test/01-create.ts';
-
-/**
- * Delete
- */
-
-import './test/04-delete.ts';
+// import './test/integration/index.ts';

@@ -1,8 +1,8 @@
-import { FolderIface } from '../object/folder.ts';
-import { LoginItemIface } from '../object/item/login.ts';
-import { ItemIface } from '../object/item/item.ts';
-import { CardItemIface } from '../object/item/card.ts';
-import { IdentityItemIface } from '../object/item/identity.ts';
+import { FolderIface } from '../../object/folder.ts';
+import { LoginItemIface } from '../../object/item/login.ts';
+import { ItemIface } from '../../object/item/item.ts';
+import { CardItemIface } from '../../object/item/card.ts';
+import { IdentityItemIface } from '../../object/item/identity.ts';
 
 interface TestObject {
   folder: FolderIface;

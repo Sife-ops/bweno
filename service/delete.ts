@@ -9,7 +9,7 @@ export class DeleteService {
 
   async delete(object: ObjectIdClass): Promise<boolean> {
     const param = {
-      object: object.object,
+      item: object.object,
       id: object.id,
     };
 
