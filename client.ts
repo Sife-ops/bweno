@@ -62,6 +62,9 @@ export class Client {
         keys.map((e) => {
           p = p.replace(`:${e}`, `${obj[e]}`);
         });
+        if (p.includes(':')) {
+          throw new Error('path parameter replacement error');
+        }
         return p;
       } else {
         return path;

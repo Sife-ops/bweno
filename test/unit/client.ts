@@ -1,17 +1,36 @@
-import { assert, bweno } from '../../test-deps.ts';
+import { assert, bweno, fail } from '../../test-deps.ts';
 
 Deno.test({
-  name: 'paramReplace',
+  name: 'paramReplace - with param',
   fn: () => {
-    const path = '/object/:item/:id';
-    const param = {
+    const result = bweno['client']['paramReplace']('/object/:item/:id', {
       item: 'a',
       id: 'b',
-    };
-
-    const result = bweno['client']['paramReplace'](path, param);
-
+    });
     assert(result === '/object/a/b');
+  },
+});
+
+Deno.test({
+  name: 'paramReplace - no param',
+  fn: () => {
+    const result = bweno['client']['paramReplace']('/status');
+    assert(result === '/status');
+  },
+});
+
+Deno.test({
+  name: 'paramReplace - invalid param',
+  fn: () => {
+    try {
+      bweno['client']['paramReplace']('/object/:item/:id', {
+        object: 'a',
+        id: 'b',
+      });
+      fail();
+    } catch (e) {
+      assert(e.message.includes('replacement error'));
+    }
   },
 });
 
