@@ -14,3 +14,17 @@ Deno.test({
     assert(result === '/object/a/b');
   },
 });
+
+Deno.test({
+  name: 'queryToString',
+  fn: () => {
+    const query = {
+      item: 'a',
+      id: 'b',
+    };
+
+    const result = bweno['client']['queryToString'](query);
+
+    assert(result === '?item=a&id=b');
+  },
+});
