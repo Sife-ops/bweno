@@ -41,7 +41,7 @@ output:
 If "status" is anything other than "unlocked", this library will not work
 properly for you.
 
-## Usage
+## Example usage
 
 Create an instance:
 
